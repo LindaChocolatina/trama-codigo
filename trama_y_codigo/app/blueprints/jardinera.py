@@ -51,11 +51,40 @@ def dashboard():
         ProyectoSoftware, ProyectoFibras,
         EntradaBitacora, ProductoBosque, ConexionMicelio
     )
+    from app.models.canasto import Pedido
     stats = {
         'flores': ProyectoSoftware.query.count(),
         'tramas': ProyectoFibras.query.count(),
         'entradas': EntradaBitacora.query.count(),
         'tesoros': ProductoBosque.query.count(),
         'conexiones': ConexionMicelio.query.count(),
+        'pedidos': Pedido.query.filter_by(estado_pago='pendiente').count()
     }
     return render_template('jardinera/dashboard.html', stats=stats)
+
+
+@bp.route('/jardinera/pedidos')
+@login_required
+def pedidos():
+    """Revisar los intercambios del bosque."""
+    if not current_user.es_jardinera:
+        return redirect(url_for('jardin.escena'))
+
+    from app.models.canasto import Pedido
+    lista_pedidos = Pedido.query.order_by(Pedido.fecha_pedido.desc()).all()
+    return render_template('jardinera/pedidos.html', pedidos=lista_pedidos)
+
+
+@bp.route('/jardinera/pedidos/<int:pedido_id>/aprobar', methods=['POST'])
+@login_required
+def aprobar_pedido(pedido_id):
+    """Marca un pedido manual (Nequi) como completado tras verificar el pago."""
+    if not current_user.es_jardinera:
+        return redirect(url_for('jardin.escena'))
+    
+    from app.models.canasto import Pedido
+    pedido = Pedido.query.get_or_404(pedido_id)
+    pedido.estado_pago = 'completado'
+    db.session.commit()
+    flash(f'El pedido #{pedido.id} ha florecido exitosamente.', 'exito')
+    return redirect(url_for('jardinera.pedidos'))

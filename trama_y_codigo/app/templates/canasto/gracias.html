@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block titulo %}Gracias | Trama & Código{% endblock %}
+{% block contenido %}
+<section class="seccion" style="min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+    <div class="contenedor-estrecho" style="text-align: center;">
+        <div class="panel-cristal" style="padding: 4rem 2rem;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">✨</div>
+            <h1 style="color: var(--verde-musgo); margin-bottom: 1rem;">El ecosistema agradece tu visita</h1>
+            
+            {% if metodo == 'nequi' %}
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                Tu comprobante ha sido depositado en el buzón. La jardinera lo revisará pronto y tus tesoros serán preparados con cuidado.
+            </p>
+            {% else %}
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                La magia fue instantánea. Tus tesoros pronto estarán en camino a su nuevo hogar.
+            </p>
+            {% endif %}
+
+            <p class="texto-manuscrito" style="font-size: 1.5rem; margin-bottom: 2rem;">"La paciencia es el arte de la esperanza"</p>
+
+            <a href="{{ url_for('jardin.escena') }}" class="boton boton-primario">Volver al Jardín 🏡</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

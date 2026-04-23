@@ -25,14 +25,17 @@
                 <div class="stat-label">🌲 Tesoros en el bosque</div>
             </div>
             <div class="stat-card">
-                <div class="stat-numero">{{ stats.conexiones }}</div>
-                <div class="stat-label">🍄 Conexiones del micelio</div>
+                <div class="stat-numero">{{ stats.pedidos }}</div>
+                <div class="stat-label">📦 Pedidos pendientes</div>
             </div>
         </div>
         <div class="panel-cristal">
             <h3>Acciones rápidas</h3>
             <p class="texto-manuscrito" style="margin: 1rem 0;">El panel CRUD completo se construirá en la Fase 2</p>
-            <a href="{{ url_for('jardinera.logout') }}" class="boton boton-fantasma">Salir del jardín</a>
+            <div style="display: flex; gap: 1rem;">
+                <a href="{{ url_for('jardinera.pedidos') }}" class="boton boton-primario">Ver pedidos de la tienda</a>
+                <a href="{{ url_for('jardinera.logout') }}" class="boton boton-fantasma">Salir del jardín</a>
+            </div>
         </div>
     </div>
 </section>

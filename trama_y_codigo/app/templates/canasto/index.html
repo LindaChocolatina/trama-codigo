@@ -35,7 +35,7 @@
                 Total: ${{ '{:,.0f}'.format(total.valor) }}
             </div>
             <div style="text-align: right; margin-top: 1rem;">
-                <a href="#" class="boton boton-dorado">Proceder al pago 💳</a>
+                <a href="{{ url_for('canasto.checkout') }}" class="boton boton-dorado">Proceder al pago 💳</a>
             </div>
         </div>
         {% else %}

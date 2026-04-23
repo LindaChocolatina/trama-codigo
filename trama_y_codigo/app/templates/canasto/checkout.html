@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block titulo %}Checkout | Trama & Código{% endblock %}
+{% block contenido %}
+<div class="seccion-header" style="padding-top: 120px;">
+    <h1>Llevar al refugio</h1>
+    <p class="subtitulo">Déjanos saber a quién le entregamos estos tesoros</p>
+</div>
+<section class="seccion">
+    <div class="contenedor-estrecho">
+        <div class="panel-cristal" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--espacio-xl);">
+            
+            <!-- Resumen -->
+            <div>
+                <h3 style="margin-bottom: 1rem; font-family: var(--fuente-titulo);">Resumen del Canasto</h3>
+                <ul style="list-style: none; padding: 0;">
+                    {% for item in canasto %}
+                    <li style="margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+                        <span>{{ item.cantidad }}x {{ item.nombre }}</span>
+                        <span>${{ '{:,.0f}'.format(item.precio * item.cantidad) }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div style="border-top: 1px solid var(--gris-niebla); padding-top: 1rem; margin-top: 1rem; font-weight: bold; display: flex; justify-content: space-between;">
+                    <span>Total a pagar</span>
+                    <span style="color: var(--ocre-dorado); font-size: 1.2rem;">${{ '{:,.0f}'.format(total) }}</span>
+                </div>
+            </div>
+
+            <!-- Formulario de invitado -->
+            <div style="border-left: 1px solid rgba(0,0,0,0.1); padding-left: var(--espacio-xl);">
+                <form method="POST" action="{{ url_for('canasto.checkout') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="form-grupo">
+                        <label for="nombre">Tu nombre o apodo</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="email">Correo mágico</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Para enviarte los detalles" required>
+                    </div>
+                    <button type="submit" class="boton boton-primario" style="width: 100%; justify-content: center;">Continuar al pago →</button>
+                </form>
+                <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 1rem; text-align: center;">No necesitas crear contraseña, la magia se encarga de recordarte.</p>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% endblock %}

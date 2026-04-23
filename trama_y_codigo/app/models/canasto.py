@@ -27,7 +27,24 @@ class Pedido(db.Model):
     metodo_pago = db.Column(db.String(20))  # 'paypal', 'nequi', 'transferencia'
     estado_pago = db.Column(db.String(20), default='pendiente')  # 'pendiente', 'completado', 'fallido'
     referencia_pago = db.Column(db.String(100))
+    comprobante_url = db.Column(db.String(255))
     fecha_pedido = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    detalles = db.relationship('DetallePedido', backref='pedido', lazy=True, cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Pedido #{self.id} — {self.estado_pago}>'
+
+class DetallePedido(db.Model):
+    __tablename__ = 'detalle_pedido'
+
+    id = db.Column(db.Integer, primary_key=True)
+    pedido_id = db.Column(db.Integer, db.ForeignKey('pedidos.id', ondelete='CASCADE'))
+    producto_id = db.Column(db.Integer, db.ForeignKey('inventario_bosque.id'))
+    cantidad = db.Column(db.Integer, nullable=False, default=1)
+    precio_unitario = db.Column(db.Numeric(10, 2), nullable=False)
+
+    producto = db.relationship('ProductoBosque')
+
+    def __repr__(self):
+        return f'<DetallePedido Pedido={self.pedido_id} Prod={self.producto_id}>'

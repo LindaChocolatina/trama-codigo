@@ -178,4 +178,4 @@ def _sembrar_datos_iniciales(app):
     db.session.add_all(tesoros)
 
     db.session.commit()
-    print('🌱 El jardín ha sido sembrado con datos iniciales.')
+    print('[OK] El jardin ha sido sembrado con datos iniciales.')

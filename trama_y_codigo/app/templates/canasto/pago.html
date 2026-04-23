@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block titulo %}Pagar | Trama & Código{% endblock %}
+{% block contenido %}
+<div class="seccion-header" style="padding-top: 120px;">
+    <h1>El Intercambio</h1>
+    <p class="subtitulo">Elige el camino para intercambiar energía por tesoros</p>
+</div>
+<section class="seccion">
+    <div class="contenedor-estrecho">
+        <div class="panel-cristal">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="color: var(--ocre-dorado); font-size: 2rem;">Total: ${{ '{:,.0f}'.format(pedido.total) }}</h2>
+                <p>Pedido #{{ pedido.id }}</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--espacio-2xl);">
+                
+                <!-- Opcion Nequi -->
+                <div>
+                    <h3 style="margin-bottom: 1rem; color: var(--vinotinto);">1. Nequi (Manual)</h3>
+                    <div style="background: rgba(0,0,0,0.03); padding: 1rem; border-radius: var(--radio-suave); margin-bottom: 1rem;">
+                        <p style="margin-bottom: 0.5rem;">Transfiere exactamente <strong>${{ '{:,.0f}'.format(pedido.total) }}</strong> a:</p>
+                        <p style="font-size: 1.2rem; font-weight: bold; color: var(--verde-musgo); letter-spacing: 2px;">300 000 0000</p>
+                        <p style="font-size: 0.8rem; opacity: 0.7;">A nombre de Trama & Código</p>
+                    </div>
+                    
+                    <form method="POST" action="{{ url_for('canasto.confirmar_nequi') }}" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
+                        
+                        <div class="form-grupo">
+                            <label for="comprobante">Sube el comprobante (imagen)</label>
+                            <input type="file" id="comprobante" name="comprobante" accept="image/*" class="form-control" style="background: white;" required>
+                        </div>
+                        <button type="submit" class="boton boton-primario" style="width: 100%; justify-content: center;">Enviar comprobante</button>
+                    </form>
+                </div>
+
+                <!-- Opcion PayPal -->
+                <div style="border-left: 1px solid rgba(0,0,0,0.1); padding-left: var(--espacio-2xl);">
+                    <h3 style="margin-bottom: 1rem; color: var(--vinotinto);">2. PayPal</h3>
+                    <p style="margin-bottom: 1rem; font-size: 0.9rem;">Paga de forma rápida y segura con tu cuenta de PayPal o Tarjeta de Crédito.</p>
+                    
+                    <div id="paypal-button-container"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block js_extra %}
+<script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=USD"></script>
+<script>
+    // Asumimos conversión 1 USD = 4000 COP para el demo (puedes ajustar esta lógica luego)
+    const totalUSD = ({{ pedido.total }} / 4000).toFixed(2);
+    
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalUSD
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Notificar al backend
+                fetch('{{ url_for("canasto.confirmar_paypal") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        pedido_id: {{ pedido.id }},
+                        transaction_id: details.id
+                    })
+                }).then(res => res.json()).then(data => {
+                    if(data.success) {
+                        window.location.href = data.url;
+                    }
+                });
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+{% endblock %}
