@@ -38,7 +38,9 @@ def agregar(producto_id):
     """Agrega un tesoro al canasto."""
     producto = ProductoBosque.query.get_or_404(producto_id)
 
-    if producto.stock_disponible <= 0:
+    es_digital = producto.categoria == 'digital'
+
+    if not es_digital and producto.stock_disponible <= 0:
         flash(f'El tesoro "{producto.producto}" se ha agotado en el bosque.', 'error')
         return redirect(url_for('bosque.index'))
 
@@ -46,7 +48,7 @@ def agregar(producto_id):
     # Verificar si ya está en el canasto
     for item in canasto:
         if item['id'] == producto_id:
-            if item['cantidad'] >= producto.stock_disponible:
+            if not es_digital and item['cantidad'] >= producto.stock_disponible:
                 flash(f'No hay suficientes "{producto.producto}" en el bosque.', 'error')
                 return redirect(url_for('canasto.index'))
             item['cantidad'] += 1
@@ -152,9 +154,9 @@ def confirmar_nequi():
         pedido.comprobante_url = filename
         pedido.estado_pago = 'pendiente' # La jardinera debe verificarlo
         
-        # Restar el stock
+        # Restar el stock si es físico
         for detalle in pedido.detalles:
-            if detalle.producto.stock_disponible > 0:
+            if detalle.producto.categoria != 'digital' and detalle.producto.stock_disponible > 0:
                 detalle.producto.stock_disponible -= detalle.cantidad
 
         # Limpiar canasto
@@ -176,9 +178,9 @@ def confirmar_paypal():
     pedido.referencia_pago = transaction_id
     pedido.estado_pago = 'completado'
 
-    # Restar el stock
+    # Restar el stock si es físico
     for detalle in pedido.detalles:
-        if detalle.producto.stock_disponible > 0:
+        if detalle.producto.categoria != 'digital' and detalle.producto.stock_disponible > 0:
             detalle.producto.stock_disponible -= detalle.cantidad
 
     # Limpiar canasto

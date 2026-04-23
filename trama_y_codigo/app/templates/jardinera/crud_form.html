@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }} | La Jardinera{% endblock %}
+{% block contenido %}
+<div class="seccion-header" style="padding-top: 120px;">
+    <h1>🌿 {{ titulo }}</h1>
+</div>
+<section class="seccion">
+    <div class="contenedor-estrecho">
+        <div style="margin-bottom: 2rem;">
+            <a href="{{ volver_url }}" class="boton boton-fantasma">← Cancelar y volver</a>
+        </div>
+
+        <div class="panel-cristal">
+            {% if imagen_actual %}
+            <div style="margin-bottom: 2rem; text-align: center;">
+                <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Imagen actual:</p>
+                <img src="{{ url_for('static', filename='uploads/imagenes/' ~ imagen_actual) }}" alt="Imagen actual" style="max-width: 200px; border-radius: var(--radio-suave); box-shadow: var(--sombra-sutil);">
+            </div>
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                
+                {% for field in form %}
+                    {% if field.type != 'CSRFTokenField' and field.type != 'SubmitField' %}
+                    <div class="form-grupo">
+                        {{ field.label }}
+                        
+                        {% if field.type == 'FileField' %}
+                            {{ field(class="form-control", style="background: white;") }}
+                        {% else %}
+                            {{ field(class="form-control") }}
+                        {% endif %}
+
+                        {% if field.errors %}
+                            <ul style="color: var(--vinotinto); font-size: 0.85rem; margin-top: 0.25rem;">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+
+                <div style="margin-top: 2rem;">
+                    {{ form.submit(class="boton boton-primario", style="width: 100%; justify-content: center;") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

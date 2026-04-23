@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block titulo %}Gestión: {{ config.titulo }} | La Jardinera{% endblock %}
+{% block contenido %}
+<div class="seccion-header" style="padding-top: 120px;">
+    <h1>🌿 {{ config.titulo }}</h1>
+    <p class="subtitulo">Panel de administración del ecosistema</p>
+</div>
+<section class="seccion">
+    <div class="contenedor">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <a href="{{ url_for('jardinera.dashboard') }}" class="boton boton-fantasma">← Volver al Dashboard</a>
+            <a href="{{ url_for('jardinera.' ~ config.entidad ~ '_crear') }}" class="boton boton-primario">✨ Añadir Nuevo</a>
+        </div>
+
+        <div class="panel-cristal" style="overflow-x: auto;">
+            {% if items %}
+            <table class="canasto-tabla" style="width: 100%;">
+                <thead>
+                    <tr>
+                        {% for titulo, atributo in config.columnas %}
+                        <th>{{ titulo }}</th>
+                        {% endfor %}
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        {% for titulo, atributo in config.columnas %}
+                        <td>{{ item|attr(atributo) }}</td>
+                        {% endfor %}
+                        <td>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <a href="{{ url_for('jardinera.' ~ config.entidad ~ '_editar', id=item.id) }}" class="boton boton-fantasma" style="padding: 4px 10px; font-size: 0.8rem;">Editar</a>
+                                <form action="{{ url_for('jardinera.' ~ config.entidad ~ '_eliminar', id=item.id) }}" method="POST" style="margin:0;" onsubmit="return confirm('¿Estás segura de eliminar esta semilla?');">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="boton boton-primario" style="background: var(--vinotinto); padding: 4px 10px; font-size: 0.8rem; border-color: var(--vinotinto);">Borrar</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="text-align: center; color: var(--carbon-suave);">No hay elementos en esta sección del jardín aún.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

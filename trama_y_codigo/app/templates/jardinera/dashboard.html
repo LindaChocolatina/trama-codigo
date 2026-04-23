@@ -30,11 +30,18 @@
             </div>
         </div>
         <div class="panel-cristal">
-            <h3>Acciones rápidas</h3>
-            <p class="texto-manuscrito" style="margin: 1rem 0;">El panel CRUD completo se construirá en la Fase 2</p>
-            <div style="display: flex; gap: 1rem;">
-                <a href="{{ url_for('jardinera.pedidos') }}" class="boton boton-primario">Ver pedidos de la tienda</a>
-                <a href="{{ url_for('jardinera.logout') }}" class="boton boton-fantasma">Salir del jardín</a>
+            <h3>Administrar el Ecosistema</h3>
+            <p class="texto-manuscrito" style="margin: 1rem 0;">Da vida a nuevas semillas o poda las existentes.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                <a href="{{ url_for('jardinera.flores_index') }}" class="boton boton-fantasma">🌱 Semillero (Software)</a>
+                <a href="{{ url_for('jardinera.tramas_index') }}" class="boton boton-fantasma">🕸️ Tramas (Fibras)</a>
+                <a href="{{ url_for('jardinera.tesoros_index') }}" class="boton boton-fantasma">🌲 Bosque (Tienda)</a>
+                <a href="{{ url_for('jardinera.bitacora_index') }}" class="boton boton-fantasma">🏡 Refugio (Blog)</a>
+                <a href="{{ url_for('jardinera.pedidos') }}" class="boton boton-primario">📦 Ver Pedidos</a>
+            </div>
+            
+            <div style="margin-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 1rem;">
+                <a href="{{ url_for('jardinera.logout') }}" style="color: var(--vinotinto); text-decoration: underline;">Salir del panel de control</a>
             </div>
         </div>
     </div>

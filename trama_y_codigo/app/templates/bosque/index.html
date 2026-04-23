@@ -12,6 +12,9 @@
             {% for p in productos %}
             <article class="card-jardin animar-entrada" style="animation-delay: {{ loop.index0 * 0.15 }}s;">
                 <div class="card-jardin-cuerpo">
+                    {% if p.imagen_url %}
+                    <img src="{{ url_for('static', filename='uploads/imagenes/' ~ p.imagen_url) }}" alt="{{ p.producto }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: var(--radio-suave); margin-bottom: 1rem;">
+                    {% endif %}
                     <span class="etiqueta {{ 'etiqueta-tech' if p.categoria == 'digital' else 'etiqueta-fibra' }}">
                         {{ '💾 Digital' if p.categoria == 'digital' else '📦 Físico' }}
                     </span>
@@ -20,7 +23,13 @@
                     <p class="bosque-precio">${{ '{:,.0f}'.format(p.precio) }}</p>
                 </div>
                 <div class="card-jardin-pie">
-                    {% if p.stock_disponible > 0 %}
+                    {% if p.categoria == 'digital' %}
+                    <span class="card-jardin-meta" style="color: var(--verde-musgo);">✨ Disponible siempre</span>
+                    <form action="{{ url_for('canasto.agregar', producto_id=p.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="boton boton-dorado">🧺 Recolectar</button>
+                    </form>
+                    {% elif p.stock_disponible > 0 %}
                     <span class="card-jardin-meta">{{ p.stock_disponible }} disponibles</span>
                     <form action="{{ url_for('canasto.agregar', producto_id=p.id) }}" method="POST" style="display:inline;">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
