@@ -12,6 +12,8 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'semilla-secreta-por-defecto')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max para uploads
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads', 'comprobantes')
+    PAYPAL_CLIENT_ID = os.environ.get('PAYPAL_CLIENT_ID', 'test')
 
 
 class DesarrolloConfig(Config):
