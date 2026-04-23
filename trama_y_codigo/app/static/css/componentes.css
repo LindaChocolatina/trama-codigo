@@ -1,0 +1,202 @@
+/*
+ * COMPONENTES — Cards, botones y modales del jardín
+ */
+
+/* ── Cards ── */
+.card-jardin {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radio-medio);
+    overflow: hidden;
+    transition: var(--transicion-suave);
+    box-shadow: var(--sombra-sutil);
+}
+.card-jardin:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-profunda);
+}
+.card-jardin-imagen {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: var(--transicion-suave);
+}
+.card-jardin:hover .card-jardin-imagen {
+    transform: scale(1.05);
+}
+.card-jardin-cuerpo {
+    padding: var(--espacio-lg);
+}
+.card-jardin-titulo {
+    font-family: var(--fuente-titulo);
+    font-size: 1.2rem;
+    color: var(--vinotinto);
+    margin-bottom: var(--espacio-sm);
+}
+.card-jardin-meta {
+    font-size: 0.8rem;
+    color: var(--verde-musgo);
+    font-weight: 400;
+    margin-bottom: var(--espacio-sm);
+}
+.card-jardin-texto {
+    font-size: 0.9rem;
+    color: var(--carbon-suave);
+    line-height: 1.6;
+}
+.card-jardin-pie {
+    padding: var(--espacio-md) var(--espacio-lg);
+    border-top: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ── Grilla de Cards ── */
+.grilla-jardin {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--espacio-xl);
+}
+
+/* ── Botones ── */
+.boton {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--espacio-sm);
+    padding: var(--espacio-sm) var(--espacio-xl);
+    border: none;
+    border-radius: var(--radio-suave);
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.9rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: var(--transicion-suave);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+}
+.boton-primario {
+    background: linear-gradient(135deg, var(--vinotinto), var(--vinotinto-suave));
+    color: white;
+}
+.boton-primario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(99,14,22,0.3);
+    color: white;
+}
+.boton-dorado {
+    background: linear-gradient(135deg, var(--ocre-dorado), var(--naranja-ginger));
+    color: white;
+}
+.boton-dorado:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(192,149,40,0.4);
+    color: white;
+}
+.boton-fantasma {
+    background: transparent;
+    border: 1px solid var(--verde-musgo);
+    color: var(--verde-musgo);
+}
+.boton-fantasma:hover {
+    background: var(--verde-musgo);
+    color: white;
+}
+
+/* ── Tags ── */
+.etiqueta {
+    display: inline-block;
+    padding: 2px var(--espacio-sm);
+    font-size: 0.75rem;
+    border-radius: 20px;
+    font-weight: 400;
+}
+.etiqueta-tech {
+    background: rgba(74,93,35,0.1);
+    color: var(--verde-musgo);
+}
+.etiqueta-fibra {
+    background: rgba(99,14,22,0.1);
+    color: var(--vinotinto);
+}
+.etiqueta-precio {
+    background: rgba(192,149,40,0.15);
+    color: var(--ocre-dorado);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: var(--espacio-xs) var(--espacio-md);
+}
+
+/* ── Formularios ── */
+.form-grupo {
+    margin-bottom: var(--espacio-lg);
+}
+.form-grupo label {
+    display: block;
+    font-family: var(--fuente-titulo);
+    font-size: 0.9rem;
+    color: var(--vinotinto);
+    margin-bottom: var(--espacio-xs);
+}
+.form-control {
+    width: 100%;
+    padding: var(--espacio-md);
+    border: 1px solid var(--gris-niebla);
+    border-radius: var(--radio-suave);
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.95rem;
+    background: rgba(255,255,255,0.7);
+    transition: var(--transicion-rapida);
+}
+.form-control:focus {
+    outline: none;
+    border-color: var(--ocre-dorado);
+    box-shadow: 0 0 0 3px rgba(192,149,40,0.15);
+}
+textarea.form-control { min-height: 120px; resize: vertical; }
+
+/* ── Header de sección ── */
+.seccion-header {
+    text-align: center;
+    margin-bottom: var(--espacio-2xl);
+    padding: var(--espacio-2xl) 0 var(--espacio-xl);
+}
+.seccion-header h1 {
+    margin-bottom: var(--espacio-sm);
+}
+.seccion-header .subtitulo {
+    font-family: var(--fuente-manuscrita);
+    font-size: 1.3rem;
+    color: var(--verde-musgo);
+}
+.seccion-fondo {
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+.seccion-fondo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(245,240,232,0.7);
+    backdrop-filter: blur(4px);
+}
+.seccion-fondo > * { position: relative; z-index: 2; }
+
+/* ── Estado vacío ── */
+.estado-vacio {
+    text-align: center;
+    padding: var(--espacio-2xl);
+    color: var(--carbon-suave);
+}
+.estado-vacio-icono { font-size: 3rem; margin-bottom: var(--espacio-md); opacity: 0.5; }
+.estado-vacio p { font-family: var(--fuente-manuscrita); font-size: 1.2rem; }
+
+@media (max-width: 768px) {
+    .grilla-jardin { grid-template-columns: 1fr; }
+}

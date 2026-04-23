@@ -1,0 +1,179 @@
+/*
+ * ESCENA — El Paisaje Dinámico
+ * Los estados del cielo cambian con el reloj lógico.
+ */
+.escena-paisaje {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    transition: var(--transicion-lenta);
+}
+.escena-fondo {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 1.5s ease;
+}
+.escena-fondo--solar { background-image: url('/static/img/escena/paisaje_solar.png'); z-index: 1; }
+.escena-fondo--nocturno { background-image: url('/static/img/escena/paisaje_nocturno.png'); z-index: 1; }
+.escena-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 2;
+    transition: var(--transicion-lenta);
+    pointer-events: none;
+}
+.modo-solar .escena-overlay {
+    background: linear-gradient(180deg, rgba(209,213,210,0.2) 0%, rgba(245,240,232,0.1) 40%, rgba(192,149,40,0.05) 100%);
+}
+.modo-nocturno .escena-overlay {
+    background: linear-gradient(180deg, rgba(13,17,23,0.6) 0%, rgba(26,35,50,0.4) 50%, rgba(13,17,23,0.5) 100%);
+}
+.escena-contenido {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: var(--espacio-2xl);
+    text-align: center;
+}
+.bienvenida {
+    max-width: 700px;
+    padding: var(--espacio-2xl);
+    animation: aparecer 1.2s ease forwards;
+}
+.modo-solar .bienvenida {
+    background: rgba(245,240,232,0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: var(--radio-grande);
+    box-shadow: 0 8px 32px rgba(99,14,22,0.08);
+}
+.modo-nocturno .bienvenida {
+    background: rgba(13,17,23,0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(232,217,176,0.1);
+    border-radius: var(--radio-grande);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.bienvenida-titulo {
+    font-family: var(--fuente-titulo);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: var(--espacio-sm);
+}
+.modo-solar .bienvenida-titulo { color: var(--vinotinto); }
+.modo-nocturno .bienvenida-titulo { color: var(--luna); }
+.bienvenida-subtitulo {
+    font-family: var(--fuente-manuscrita);
+    font-size: 1.5rem;
+    margin-bottom: var(--espacio-lg);
+}
+.modo-solar .bienvenida-subtitulo { color: var(--verde-musgo); }
+.modo-nocturno .bienvenida-subtitulo { color: var(--ocre-dorado-suave); }
+.bienvenida-saludo {
+    font-family: var(--fuente-cuerpo);
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: var(--espacio-xl);
+}
+.modo-solar .bienvenida-saludo { color: var(--carbon-suave); }
+.modo-nocturno .bienvenida-saludo { color: var(--gris-niebla); }
+.movimientos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--espacio-md);
+    margin-top: var(--espacio-lg);
+    width: 100%;
+}
+.movimiento {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--espacio-xs);
+    padding: var(--espacio-md);
+    border-radius: var(--radio-medio);
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transicion-suave);
+}
+.modo-solar .movimiento {
+    background: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--carbon);
+}
+.modo-solar .movimiento:hover {
+    background: rgba(255,255,255,0.7);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.modo-nocturno .movimiento {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(232,217,176,0.1);
+    color: var(--gris-niebla);
+}
+.modo-nocturno .movimiento:hover {
+    background: rgba(232,217,176,0.1);
+    transform: translateY(-4px);
+}
+.movimiento-icono { font-size: 1.8rem; margin-bottom: var(--espacio-xs); }
+.movimiento-nombre { font-family: var(--fuente-titulo); font-size: 0.9rem; font-weight: 600; }
+.movimiento-desc { font-size: 0.7rem; opacity: 0.7; font-weight: 300; }
+.luciernaga {
+    position: absolute;
+    width: 4px; height: 4px;
+    background: var(--ocre-dorado);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--ocre-dorado), 0 0 16px var(--ocre-dorado-suave);
+    animation: flotar-luciernaga 4s ease-in-out infinite, brillar 2s ease-in-out infinite;
+    z-index: 5;
+    pointer-events: none;
+}
+@keyframes flotar-luciernaga {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(15px,-20px); }
+    50% { transform: translate(-10px,-35px); }
+    75% { transform: translate(20px,-15px); }
+    100% { transform: translate(0,0); }
+}
+.estrella {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: brillar-estrella 3s ease-in-out infinite;
+    z-index: 4;
+    pointer-events: none;
+}
+@keyframes brillar-estrella {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+}
+.indicador-hora {
+    position: fixed;
+    bottom: var(--espacio-lg);
+    left: var(--espacio-lg);
+    z-index: 100;
+    font-family: var(--fuente-manuscrita);
+    font-size: 1rem;
+    padding: var(--espacio-sm) var(--espacio-md);
+    border-radius: var(--radio-suave);
+}
+.modo-solar .indicador-hora { background: rgba(245,240,232,0.7); color: var(--verde-musgo); backdrop-filter: blur(8px); }
+.modo-nocturno .indicador-hora { background: rgba(13,17,23,0.7); color: var(--luna); backdrop-filter: blur(8px); }
+@media (max-width: 768px) {
+    .bienvenida-titulo { font-size: 2rem; }
+    .bienvenida-subtitulo { font-size: 1.2rem; }
+    .movimientos { grid-template-columns: repeat(2, 1fr); }
+    .bienvenida { padding: var(--espacio-xl) var(--espacio-lg); }
+}
+@media (max-width: 480px) { .movimientos { grid-template-columns: 1fr; } }

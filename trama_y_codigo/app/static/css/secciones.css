@@ -1,0 +1,68 @@
+/* SECCIONES — Estilos específicos por sección */
+
+/* ── Refugio (Blog) ── */
+.refugio-entrada { max-width: 800px; margin: 0 auto; }
+.refugio-entrada-header { margin-bottom: var(--espacio-xl); }
+.refugio-humor { font-family: var(--fuente-manuscrita); color: var(--naranja-ginger); font-size: 1.1rem; }
+.refugio-contenido { font-size: 1.05rem; line-height: 1.9; }
+
+/* ── Semillero ── */
+.semillero-stack { display: flex; flex-wrap: wrap; gap: var(--espacio-xs); margin-top: var(--espacio-sm); }
+
+/* ── Bosque (Tienda) ── */
+.bosque-precio { font-family: var(--fuente-titulo); font-size: 1.4rem; color: var(--ocre-dorado); font-weight: 700; }
+
+/* ── Retrato (Sobre mí) ── */
+.retrato-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+.retrato-hero-fondo {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+}
+.retrato-hero-fondo img { width: 100%; height: 100%; object-fit: cover; }
+.retrato-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(245,240,232,0.3) 0%, rgba(245,240,232,0.8) 100%);
+}
+.retrato-contenido { position: relative; z-index: 2; max-width: 700px; padding: var(--espacio-2xl); }
+
+/* ── Micelio (Contacto) ── */
+.micelio-form { max-width: 600px; margin: 0 auto; }
+
+/* ── Canasto ── */
+.canasto-tabla { width: 100%; border-collapse: collapse; }
+.canasto-tabla th, .canasto-tabla td {
+    padding: var(--espacio-md);
+    text-align: left;
+    border-bottom: 1px solid var(--gris-niebla);
+}
+.canasto-tabla th { font-family: var(--fuente-titulo); color: var(--vinotinto); font-size: 0.9rem; }
+.canasto-total { font-family: var(--fuente-titulo); font-size: 1.3rem; color: var(--vinotinto); text-align: right; margin-top: var(--espacio-xl); }
+
+/* ── Jardinera (Admin) ── */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--espacio-lg);
+    margin-bottom: var(--espacio-2xl);
+}
+.stat-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radio-medio);
+    padding: var(--espacio-lg);
+    text-align: center;
+}
+.stat-numero { font-family: var(--fuente-titulo); font-size: 2.5rem; color: var(--vinotinto); font-weight: 700; }
+.stat-label { font-size: 0.85rem; color: var(--verde-musgo); margin-top: var(--espacio-xs); }

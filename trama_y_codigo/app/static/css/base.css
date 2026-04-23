@@ -1,0 +1,491 @@
+/*
+ * ═══════════════════════════════════════════════════
+ * TRAMA & CÓDIGO — Design System
+ * "Diseño y programo como si mi alma fuera requerida"
+ * ═══════════════════════════════════════════════════
+ */
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+/* ═══════════════════════════════════════════════════
+   VARIABLES — La Paleta del Bosque y la Bruma
+   ═══════════════════════════════════════════════════ */
+:root {
+    /* Colores principales (Brand Book) */
+    --vinotinto: #630E16;
+    --vinotinto-suave: #8a2030;
+    --gris-niebla: #D1D5D2;
+    --gris-niebla-claro: #E8EBE9;
+    --verde-musgo: #4A5D23;
+    --verde-musgo-suave: #6b8a35;
+    --ocre-dorado: #C09528;
+    --ocre-dorado-suave: #d4aa40;
+    --naranja-ginger: #D97D3A;
+
+    /* Colores de soporte */
+    --crema: #F5F0E8;
+    --crema-oscuro: #E8DFD0;
+    --carbon: #2C2C2C;
+    --carbon-suave: #4A4A4A;
+    --blanco-humo: #FAFAF8;
+
+    /* Colores nocturnos */
+    --noche-profunda: #0D1117;
+    --noche-media: #161B22;
+    --noche-suave: #21262D;
+    --azul-noche: #1a2332;
+    --luna: #E8D9B0;
+
+    /* Tipografías */
+    --fuente-titulo: 'Lora', Georgia, 'Times New Roman', serif;
+    --fuente-cuerpo: 'Josefin Sans', 'Segoe UI', Tahoma, sans-serif;
+    --fuente-manuscrita: 'Caveat', cursive;
+
+    /* Espaciado */
+    --espacio-xs: 0.25rem;
+    --espacio-sm: 0.5rem;
+    --espacio-md: 1rem;
+    --espacio-lg: 1.5rem;
+    --espacio-xl: 2.5rem;
+    --espacio-2xl: 4rem;
+
+    /* Bordes y sombras */
+    --radio-suave: 8px;
+    --radio-medio: 16px;
+    --radio-grande: 24px;
+    --sombra-sutil: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --sombra-media: 0 4px 20px rgba(0, 0, 0, 0.12);
+    --sombra-profunda: 0 8px 40px rgba(0, 0, 0, 0.2);
+
+    /* Glassmorphism */
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-blur: blur(16px);
+
+    /* Transiciones */
+    --transicion-suave: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transicion-rapida: all 0.2s ease;
+    --transicion-lenta: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--fuente-cuerpo);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--carbon);
+    background-color: var(--crema);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════════════
+   TIPOGRAFÍA
+   ═══════════════════════════════════════════════════ */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--fuente-titulo);
+    color: var(--vinotinto);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h1 { font-size: 2.8rem; letter-spacing: -0.02em; }
+h2 { font-size: 2rem; letter-spacing: -0.01em; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.2rem; }
+
+p {
+    margin-bottom: var(--espacio-md);
+    font-weight: 300;
+}
+
+.texto-manuscrito {
+    font-family: var(--fuente-manuscrita);
+    font-size: 1.3rem;
+    color: var(--verde-musgo);
+}
+
+.texto-poetico {
+    font-family: var(--fuente-titulo);
+    font-style: italic;
+    color: var(--vinotinto-suave);
+}
+
+a {
+    color: var(--verde-musgo);
+    text-decoration: none;
+    transition: var(--transicion-rapida);
+}
+
+a:hover {
+    color: var(--ocre-dorado);
+}
+
+/* ═══════════════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════════════ */
+.contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--espacio-lg);
+}
+
+.contenedor-estrecho {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--espacio-lg);
+}
+
+.seccion {
+    padding: var(--espacio-2xl) 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   GLASSMORPHISM — Paneles de cristal
+   ═══════════════════════════════════════════════════ */
+.panel-cristal {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radio-medio);
+    padding: var(--espacio-xl);
+    box-shadow: var(--sombra-media);
+}
+
+.panel-cristal-oscuro {
+    background: rgba(13, 17, 23, 0.75);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radio-medio);
+    padding: var(--espacio-xl);
+    color: var(--gris-niebla);
+}
+
+/* ═══════════════════════════════════════════════════
+   NAVEGACIÓN — Los senderos del jardín
+   ═══════════════════════════════════════════════════ */
+.navegacion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: var(--espacio-md) var(--espacio-xl);
+    transition: var(--transicion-suave);
+}
+
+.navegacion-contenido {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navegacion-logo {
+    font-family: var(--fuente-titulo);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--vinotinto);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+}
+
+.navegacion-logo span {
+    color: var(--verde-musgo);
+    font-weight: 400;
+}
+
+.navegacion-links {
+    display: flex;
+    list-style: none;
+    gap: var(--espacio-lg);
+    align-items: center;
+}
+
+.navegacion-links a {
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.85rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--carbon-suave);
+    text-decoration: none;
+    padding: var(--espacio-xs) var(--espacio-sm);
+    position: relative;
+    transition: var(--transicion-suave);
+}
+
+.navegacion-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--ocre-dorado);
+    transition: var(--transicion-suave);
+    transform: translateX(-50%);
+}
+
+.navegacion-links a:hover {
+    color: var(--vinotinto);
+}
+
+.navegacion-links a:hover::after {
+    width: 100%;
+}
+
+/* Navegación con scroll */
+.navegacion.scrolled {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--sombra-sutil);
+}
+
+/* Hamburger menu */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: var(--espacio-sm);
+}
+
+.menu-toggle span {
+    width: 24px;
+    height: 2px;
+    background: var(--carbon);
+    transition: var(--transicion-suave);
+}
+
+/* ═══════════════════════════════════════════════════
+   CANASTO DE MIMBRE — Carrito flotante
+   ═══════════════════════════════════════════════════ */
+.canasto-flotante {
+    position: fixed;
+    bottom: var(--espacio-xl);
+    right: var(--espacio-xl);
+    z-index: 999;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ocre-dorado), var(--naranja-ginger));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--sombra-profunda);
+    transition: var(--transicion-suave);
+    text-decoration: none;
+    border: none;
+}
+
+.canasto-flotante:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 30px rgba(192, 149, 40, 0.4);
+}
+
+.canasto-flotante .icono-canasto {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.canasto-flotante .contador {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--vinotinto);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ═══════════════════════════════════════════════════
+   FLASH MESSAGES
+   ═══════════════════════════════════════════════════ */
+.mensajes-flash {
+    position: fixed;
+    top: 80px;
+    right: var(--espacio-lg);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-sm);
+}
+
+.mensaje-flash {
+    padding: var(--espacio-md) var(--espacio-xl);
+    border-radius: var(--radio-suave);
+    font-size: 0.9rem;
+    animation: deslizarEntrada 0.5s ease, desvanecer 0.5s ease 4s forwards;
+    box-shadow: var(--sombra-media);
+    max-width: 400px;
+}
+
+.mensaje-flash.exito {
+    background: rgba(74, 93, 35, 0.9);
+    color: white;
+    border-left: 4px solid var(--verde-musgo);
+}
+
+.mensaje-flash.error {
+    background: rgba(99, 14, 22, 0.9);
+    color: white;
+    border-left: 4px solid var(--vinotinto);
+}
+
+.mensaje-flash.info {
+    background: rgba(192, 149, 40, 0.9);
+    color: white;
+    border-left: 4px solid var(--ocre-dorado);
+}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER — Las raíces del jardín
+   ═══════════════════════════════════════════════════ */
+.footer {
+    background: var(--carbon);
+    color: var(--gris-niebla);
+    padding: var(--espacio-2xl) 0 var(--espacio-xl);
+    margin-top: var(--espacio-2xl);
+}
+
+.footer-contenido {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--espacio-lg);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--espacio-2xl);
+}
+
+.footer h4 {
+    color: var(--ocre-dorado);
+    margin-bottom: var(--espacio-md);
+    font-size: 1rem;
+}
+
+.footer p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.footer a {
+    color: var(--gris-niebla);
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: var(--espacio-xs);
+}
+
+.footer a:hover {
+    color: var(--ocre-dorado);
+}
+
+.footer-firma {
+    text-align: center;
+    padding-top: var(--espacio-xl);
+    margin-top: var(--espacio-xl);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--fuente-manuscrita);
+    font-size: 1.1rem;
+    color: var(--ocre-dorado-suave);
+}
+
+/* ═══════════════════════════════════════════════════
+   ANIMACIONES
+   ═══════════════════════════════════════════════════ */
+@keyframes deslizarEntrada {
+    from { transform: translateX(100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes desvanecer {
+    from { opacity: 1; }
+    to { opacity: 0; pointer-events: none; }
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes brillar {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animar-entrada {
+    animation: aparecer 0.8s ease forwards;
+}
+
+.flotar {
+    animation: flotar 3s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    html { font-size: 14px; }
+
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.6rem; }
+
+    .navegacion-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        padding: var(--espacio-lg);
+        gap: var(--espacio-md);
+    }
+
+    .navegacion-links.activo {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .footer-contenido {
+        grid-template-columns: 1fr;
+        gap: var(--espacio-xl);
+    }
+}

@@ -1,0 +1,12 @@
+"""
+Trama & Código — Punto de entrada.
+Aquí comienza todo: la semilla germina.
+
+"La normalidad nunca ha creado magia"
+"""
+from app import create_app
+
+app = create_app('desarrollo')
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
