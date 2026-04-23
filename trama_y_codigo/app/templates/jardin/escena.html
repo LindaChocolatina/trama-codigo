@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block titulo %}Trama & Código — El Jardín Interactivo{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block contenido %}
+<div class="escena-paisaje modo-{{ estado.franja }}" id="escena-principal">
+    <!-- Fondos del paisaje -->
+    <div class="escena-fondo escena-fondo--solar" style="opacity: {{ '1' if estado.franja == 'solar' else '0' }};"></div>
+    <div class="escena-fondo escena-fondo--nocturno" style="opacity: {{ '1' if estado.franja == 'nocturno' else '0' }};"></div>
+
+    <!-- Overlay atmosférico -->
+    <div class="escena-overlay"></div>
+
+    <!-- Contenido principal -->
+    <div class="escena-contenido">
+        <div class="bienvenida">
+            <h1 class="bienvenida-titulo">Trama & Código</h1>
+            <p class="bienvenida-subtitulo">donde el código respira y las fibras tejen historias</p>
+            <p class="bienvenida-saludo">{{ saludo }}</p>
+
+            <!-- Los 6 movimientos del paisaje -->
+            <div class="movimientos">
+                <a href="{{ url_for('refugio.index') }}" class="movimiento" id="mov-refugio">
+                    <span class="movimiento-icono">🏡</span>
+                    <span class="movimiento-nombre">El Refugio</span>
+                    <span class="movimiento-desc">Blog & Bitácora</span>
+                </a>
+                <a href="{{ url_for('semillero.index') }}" class="movimiento" id="mov-semillero">
+                    <span class="movimiento-icono">🌱</span>
+                    <span class="movimiento-nombre">El Semillero</span>
+                    <span class="movimiento-desc">Software</span>
+                </a>
+                <a href="{{ url_for('tramas.index') }}" class="movimiento" id="mov-tramas">
+                    <span class="movimiento-icono">🕸️</span>
+                    <span class="movimiento-nombre">Las Tramas</span>
+                    <span class="movimiento-desc">Fibras & Tejido</span>
+                </a>
+                <a href="{{ url_for('bosque.index') }}" class="movimiento" id="mov-bosque">
+                    <span class="movimiento-icono">🌲</span>
+                    <span class="movimiento-nombre">El Bosque</span>
+                    <span class="movimiento-desc">Tienda</span>
+                </a>
+                <a href="{{ url_for('retrato.index') }}" class="movimiento" id="mov-retrato">
+                    <span class="movimiento-icono">🦋</span>
+                    <span class="movimiento-nombre">El Retrato</span>
+                    <span class="movimiento-desc">Sobre mí</span>
+                </a>
+                <a href="{{ url_for('micelio.index') }}" class="movimiento" id="mov-micelio">
+                    <span class="movimiento-icono">🍄</span>
+                    <span class="movimiento-nombre">El Micelio</span>
+                    <span class="movimiento-desc">Contacto</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indicador de hora -->
+    <div class="indicador-hora" id="indicador-hora">
+        {{ '☀️' if estado.franja == 'solar' else '🌙' }} {{ estado.hora_actual }}
+    </div>
+</div>
+{% endblock %}

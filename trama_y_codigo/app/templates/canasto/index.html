@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block titulo %}Canasto de Mimbre | Trama & Código{% endblock %}
+{% block contenido %}
+<div class="seccion-header" style="padding-top: 120px;">
+    <h1>Tu Canasto de Mimbre</h1>
+    <p class="subtitulo">Los tesoros que has recolectado del bosque</p>
+</div>
+<section class="seccion">
+    <div class="contenedor-estrecho">
+        {% if canasto %}
+        <div class="panel-cristal">
+            <table class="canasto-tabla">
+                <thead>
+                    <tr><th>Tesoro</th><th>Cantidad</th><th>Precio</th><th></th></tr>
+                </thead>
+                <tbody>
+                    {% set total = namespace(valor=0) %}
+                    {% for item in canasto %}
+                    {% set total.valor = total.valor + (item.precio * item.cantidad) %}
+                    <tr>
+                        <td>{{ item.nombre }}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>${{ '{:,.0f}'.format(item.precio * item.cantidad) }}</td>
+                        <td>
+                            <form action="{{ url_for('canasto.quitar', producto_id=item.id) }}" method="POST" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="boton boton-fantasma" style="padding: 4px 12px; font-size: 0.8rem;">Devolver</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="canasto-total">
+                Total: ${{ '{:,.0f}'.format(total.valor) }}
+            </div>
+            <div style="text-align: right; margin-top: 1rem;">
+                <a href="#" class="boton boton-dorado">Proceder al pago 💳</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="estado-vacio panel-cristal">
+            <div class="estado-vacio-icono">🧺</div>
+            <p>Tu canasto está vacío... explora el bosque y recolecta tesoros</p>
+            <a href="{{ url_for('bosque.index') }}" class="boton boton-primario" style="margin-top: 1rem;">Ir al Bosque 🌲</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

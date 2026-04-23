@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block titulo %}{{ producto.producto }} | El Bosque{% endblock %}
+{% block contenido %}
+<section class="seccion" style="padding-top: 120px;">
+    <div class="contenedor-estrecho">
+        <div class="panel-cristal">
+            <span class="etiqueta {{ 'etiqueta-tech' if producto.categoria == 'digital' else 'etiqueta-fibra' }}">
+                {{ '💾 Digital' if producto.categoria == 'digital' else '📦 Físico' }}
+            </span>
+            <h1 style="margin-top: 1rem;">{{ producto.producto }}</h1>
+            <p style="margin: 1rem 0;">{{ producto.descripcion }}</p>
+            <p class="bosque-precio" style="margin: 1.5rem 0;">${{ '{:,.0f}'.format(producto.precio) }}</p>
+            {% if producto.stock_disponible > 0 %}
+            <form action="{{ url_for('canasto.agregar', producto_id=producto.id) }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="boton boton-dorado">🧺 Recolectar en mi canasto</button>
+            </form>
+            {% endif %}
+            <a href="{{ url_for('bosque.index') }}" class="boton boton-fantasma" style="margin-top: 1rem;">← Volver al bosque</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

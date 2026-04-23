@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block titulo %}El Micelio — Contacto | Trama & Código{% endblock %}
+{% block contenido %}
+<div class="seccion-header" style="padding-top: 120px;">
+    <h1>El Micelio</h1>
+    <p class="subtitulo">Envía una raíz al bosque — conectemos bajo tierra</p>
+</div>
+<section class="seccion">
+    <div class="contenedor">
+        <div class="micelio-form panel-cristal">
+            <form method="POST" action="{{ url_for('micelio.index') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="form-grupo">
+                    <label for="nombre">Tu nombre</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="¿Cómo te llamas?" required>
+                </div>
+                <div class="form-grupo">
+                    <label for="email">Tu correo</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="para que la respuesta brote en tu bandeja" required>
+                </div>
+                <div class="form-grupo">
+                    <label for="mensaje">Tu mensaje</label>
+                    <textarea id="mensaje" name="mensaje" class="form-control" placeholder="Escribe aquí lo que quieras compartir, preguntar o conectar..." required></textarea>
+                </div>
+                <button type="submit" class="boton boton-primario">🍄 Enviar al micelio</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

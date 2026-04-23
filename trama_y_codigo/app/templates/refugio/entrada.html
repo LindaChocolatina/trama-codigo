@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}{{ entrada.titulo_entrada }} | El Refugio{% endblock %}
+{% block contenido %}
+<section class="seccion">
+    <div class="contenedor-estrecho refugio-entrada panel-cristal" style="margin-top: 100px;">
+        <div class="refugio-entrada-header">
+            <span class="refugio-humor">{{ entrada.humor_del_dia or '✨' }}</span>
+            <h1>{{ entrada.titulo_entrada }}</h1>
+            <p class="card-jardin-meta">{{ entrada.fecha_publicacion }}</p>
+        </div>
+        <div class="refugio-contenido">{{ entrada.contenido_calido }}</div>
+        <div style="margin-top: 2rem;">
+            <a href="{{ url_for('refugio.index') }}" class="boton boton-fantasma">← Volver al refugio</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

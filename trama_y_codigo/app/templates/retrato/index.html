@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block titulo %}El Retrato — Sobre mí | Trama & Código{% endblock %}
+{% block contenido %}
+<div class="retrato-hero">
+    <div class="retrato-hero-fondo">
+        <img src="{{ url_for('static', filename='img/escena/mariposa.gif') }}" alt="Mariposa en el jardín">
+    </div>
+    <div class="retrato-contenido panel-cristal" style="margin-top: 80px;">
+        <h1>El Retrato</h1>
+        <p class="subtitulo texto-manuscrito" style="font-size: 1.4rem; margin-bottom: 1.5rem;">La jardinera detrás del ecosistema</p>
+        <p>Diseño y programo como si mi alma fuera requerida para crear mis aplicaciones. Creo en la <strong>Tecnología Humanista</strong>: el software no debe ser una entidad estática, sino una que respira y cambia.</p>
+        <p>Mi trabajo vive en la intersección entre el código y las fibras, entre lo digital y lo analógico. Cada proyecto es una flor que brota, cada tejido es una trama que conecta.</p>
+        <p class="texto-manuscrito" style="margin-top: 2rem; font-size: 1.3rem;">"La normalidad nunca ha creado magia" ✨</p>
+    </div>
+</div>
+{% endblock %}

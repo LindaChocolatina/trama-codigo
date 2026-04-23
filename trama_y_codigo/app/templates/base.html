@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trama & Código — Un ecosistema digital donde el código respira, las fibras tejen historias y el jardín cambia con el tiempo.">
+    <title>{% block titulo %}Trama & Código{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/escena.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/componentes.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/secciones.css') }}">
+    {% block css_extra %}{% endblock %}
+</head>
+<body class="modo-{{ estado_mundo.franja }}">
+
+    <!-- Navegación -->
+    <nav class="navegacion" id="navegacion-principal">
+        <div class="navegacion-contenido">
+            <a href="{{ url_for('jardin.escena') }}" class="navegacion-logo">
+                Trama <span>& Código</span>
+            </a>
+
+            <button class="menu-toggle" id="menu-toggle" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul class="navegacion-links" id="navegacion-links">
+                <li><a href="{{ url_for('refugio.index') }}">Refugio</a></li>
+                <li><a href="{{ url_for('semillero.index') }}">Semillero</a></li>
+                <li><a href="{{ url_for('tramas.index') }}">Tramas</a></li>
+                <li><a href="{{ url_for('bosque.index') }}">Bosque</a></li>
+                <li><a href="{{ url_for('retrato.index') }}">Retrato</a></li>
+                <li><a href="{{ url_for('micelio.index') }}">Micelio</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% if mensajes %}
+    <div class="mensajes-flash">
+        {% for categoria, mensaje in mensajes %}
+        <div class="mensaje-flash {{ categoria }}">{{ mensaje }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Contenido principal -->
+    <main>
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <!-- Canasto flotante -->
+    <a href="{{ url_for('canasto.index') }}" class="canasto-flotante" id="canasto-flotante" title="Tu canasto de mimbre">
+        <span class="icono-canasto">🧺</span>
+    </a>
+
+    <!-- Footer -->
+    {% block footer %}
+    <footer class="footer">
+        <div class="footer-contenido">
+            <div>
+                <h4>Trama & Código</h4>
+                <p style="font-family: var(--fuente-manuscrita); font-size: 1.1rem; margin-bottom: 1rem;">
+                    Un ecosistema donde el código respira y las fibras tejen historias.
+                </p>
+                <p>Diseño y programo como si mi alma fuera requerida para crear mis aplicaciones.</p>
+            </div>
+            <div>
+                <h4>El Jardín</h4>
+                <a href="{{ url_for('refugio.index') }}">🏡 Refugio (Blog)</a>
+                <a href="{{ url_for('semillero.index') }}">🌱 Semillero (Software)</a>
+                <a href="{{ url_for('tramas.index') }}">🕸️ Tramas (Fibras)</a>
+                <a href="{{ url_for('bosque.index') }}">🌲 Bosque (Tienda)</a>
+            </div>
+            <div>
+                <h4>Conexiones</h4>
+                <a href="{{ url_for('retrato.index') }}">🦋 Retrato (Sobre mí)</a>
+                <a href="{{ url_for('micelio.index') }}">🍄 Micelio (Contacto)</a>
+                <a href="{{ url_for('canasto.index') }}">🧺 Canasto</a>
+            </div>
+        </div>
+        <div class="footer-firma">
+            "La normalidad nunca ha creado magia" ✨
+        </div>
+    </footer>
+    {% endblock %}
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/reloj.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/escena.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/hechizos.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/navegacion.js') }}"></script>
+    {% block js_extra %}{% endblock %}
+</body>
+</html>

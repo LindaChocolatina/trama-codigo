@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block titulo %}Las Tramas — Fibras | Trama & Código{% endblock %}
+{% block contenido %}
+<div class="seccion-header" style="padding-top: 120px;">
+    <h1>Las Tramas</h1>
+    <p class="subtitulo">El arte de tejer donde cada hilo cuenta una historia</p>
+</div>
+<section class="seccion">
+    <div class="contenedor">
+        {% if proyectos %}
+        <div class="grilla-jardin">
+            {% for p in proyectos %}
+            <article class="card-jardin animar-entrada" style="animation-delay: {{ loop.index0 * 0.15 }}s;">
+                <div class="card-jardin-cuerpo">
+                    <h3 class="card-jardin-titulo">{{ p.titulo_pieza }}</h3>
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span class="etiqueta etiqueta-fibra">{{ p.tecnica_tejido }}</span>
+                        <span class="etiqueta etiqueta-tech">{{ p.material }}</span>
+                    </div>
+                    <p class="card-jardin-texto">{{ p.historia_trama }}</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="estado-vacio">
+            <div class="estado-vacio-icono">🕸️</div>
+            <p>Los hilos esperan ser tejidos...</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

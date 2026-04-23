@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block titulo %}El Semillero — Software | Trama & Código{% endblock %}
+{% block contenido %}
+<div class="seccion-header" style="padding-top: 120px;">
+    <h1>El Semillero</h1>
+    <p class="subtitulo">Cada flor es un proyecto que brotó de una semilla de código</p>
+</div>
+<section class="seccion">
+    <div class="contenedor">
+        {% if proyectos %}
+        <div class="grilla-jardin">
+            {% for p in proyectos %}
+            <article class="card-jardin animar-entrada" style="animation-delay: {{ loop.index0 * 0.15 }}s;">
+                <div class="card-jardin-cuerpo">
+                    <p class="texto-manuscrito" style="font-size: 1rem; margin-bottom: 0.5rem;">🌸 {{ p.nombre_flor }}</p>
+                    <h3 class="card-jardin-titulo">{{ p.titulo }}</h3>
+                    <p class="card-jardin-texto">{{ p.descripcion_logica }}</p>
+                    <div class="semillero-stack">
+                        {% for tech in (p.stack_tecnico or '').split(',') %}
+                        {% if tech.strip() %}
+                        <span class="etiqueta etiqueta-tech">{{ tech.strip() }}</span>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% if p.repo_url %}
+                <div class="card-jardin-pie">
+                    <a href="{{ p.repo_url }}" target="_blank" class="boton boton-fantasma">Ver código →</a>
+                </div>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="estado-vacio">
+            <div class="estado-vacio-icono">🌱</div>
+            <p>Las semillas esperan ser plantadas...</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

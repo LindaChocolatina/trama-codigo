@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block titulo %}Dashboard — La Jardinera{% endblock %}
+{% block contenido %}
+<div class="seccion-header" style="padding-top: 120px;">
+    <h1>🌿 Panel de la Jardinera</h1>
+    <p class="subtitulo">El estado de tu ecosistema, {{ current_user.username }}</p>
+</div>
+<section class="seccion">
+    <div class="contenedor">
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-numero">{{ stats.flores }}</div>
+                <div class="stat-label">🌸 Flores plantadas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero">{{ stats.tramas }}</div>
+                <div class="stat-label">🕸️ Tramas tejidas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero">{{ stats.entradas }}</div>
+                <div class="stat-label">🏡 Entradas en bitácora</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero">{{ stats.tesoros }}</div>
+                <div class="stat-label">🌲 Tesoros en el bosque</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero">{{ stats.conexiones }}</div>
+                <div class="stat-label">🍄 Conexiones del micelio</div>
+            </div>
+        </div>
+        <div class="panel-cristal">
+            <h3>Acciones rápidas</h3>
+            <p class="texto-manuscrito" style="margin: 1rem 0;">El panel CRUD completo se construirá en la Fase 2</p>
+            <a href="{{ url_for('jardinera.logout') }}" class="boton boton-fantasma">Salir del jardín</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

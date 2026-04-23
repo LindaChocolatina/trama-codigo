@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block titulo %}El Refugio — Blog | Trama & Código{% endblock %}
+{% block contenido %}
+<div class="seccion-fondo" style="background-image: url('{{ url_for('static', filename='img/escena/casita.gif') }}');">
+    <div class="seccion-header">
+        <h1>El Refugio</h1>
+        <p class="subtitulo">Bitácora de reflexiones junto al fuego</p>
+    </div>
+</div>
+<section class="seccion">
+    <div class="contenedor">
+        {% if entradas %}
+        <div class="grilla-jardin">
+            {% for entrada in entradas %}
+            <article class="card-jardin animar-entrada" style="animation-delay: {{ loop.index0 * 0.15 }}s;">
+                <div class="card-jardin-cuerpo">
+                    <span class="refugio-humor">{{ entrada.humor_del_dia or '✨' }}</span>
+                    <h3 class="card-jardin-titulo">{{ entrada.titulo_entrada }}</h3>
+                    <p class="card-jardin-texto">{{ entrada.contenido_calido[:200] }}...</p>
+                </div>
+                <div class="card-jardin-pie">
+                    <span class="card-jardin-meta">{{ entrada.fecha_publicacion }}</span>
+                    <a href="{{ url_for('refugio.entrada', entrada_id=entrada.id) }}" class="boton boton-fantasma">Leer más</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="estado-vacio">
+            <div class="estado-vacio-icono">🏡</div>
+            <p>El refugio espera las primeras palabras junto al fuego...</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
