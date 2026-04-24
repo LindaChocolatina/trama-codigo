@@ -82,9 +82,17 @@
     text-align: left; /* Firma también a la izquierda */
 }
 
-@media (max-width: 768px) {
-    .retrato-capa-vegetacion { height: 70%; padding: 1rem; }
-    .titulo-manuscrito-lg { font-size: 2rem; }
+@media (max-width: 900px) {
+    .retrato-capa-vegetacion { 
+        height: 60%; 
+        padding: 20px; 
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
+    }
+    .retrato-columna-unica { 
+        max-width: 100%; 
+    }
+    .titulo-manuscrito-lg { font-size: 2.2rem; }
+    .retrato-texto-final { font-size: 1rem; }
 }
 
 /* ── Micelio (Contacto) ── */
