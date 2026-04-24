@@ -11,7 +11,7 @@ db = SQLAlchemy()
 
 # El guardián del portón — controla quién entra al jardín
 login_manager = LoginManager()
-login_manager.login_view = 'jardinera.login'
+login_manager.login_view = 'auth.login'
 login_manager.login_message = 'Debes identificarte para entrar a este rincón del jardín.'
 login_manager.login_message_category = 'info'
 

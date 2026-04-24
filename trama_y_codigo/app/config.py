@@ -27,7 +27,10 @@ class DesarrolloConfig(Config):
 class ProduccionConfig(Config):
     """Verano — El jardín en plena floración."""
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    _uri = os.environ.get('DATABASE_URL')
+    if _uri and _uri.startswith("postgres://"):
+        _uri = _uri.replace("postgres://", "postgresql://", 1)
+    SQLALCHEMY_DATABASE_URI = _uri
 
 
 # Mapa de estaciones
