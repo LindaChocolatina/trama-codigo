@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 {% block titulo %}Trama & Código — El Jardín Interactivo{% endblock %}
-{% block footer %}{% endblock %}
+
 
 {% block contenido %}
 <div class="escena-paisaje modo-{{ estado.franja }}" id="escena-principal">
     <!-- Contenedor del Mapa Interactivo -->
     <div class="mapa-contenedor">
-        <!-- Imágenes de Fondo como Elementos de Bloque para mantener el aspect ratio -->
+        <!-- Imágenes de Fondo -->
         <img src="{{ url_for('static', filename='img/escena/paisaje_solar.png') }}" alt="Paisaje de Día" class="mapa-imagen mapa-imagen--solar" style="opacity: {{ '1' if estado.franja == 'solar' else '0' }};">
         <img src="{{ url_for('static', filename='img/escena/paisaje_nocturno.png') }}" alt="Paisaje de Noche" class="mapa-imagen mapa-imagen--nocturno" style="opacity: {{ '1' if estado.franja == 'nocturno' else '0' }};">
 
-        <!-- Overlay atmosférico (Opcional, puede ir sobre las imágenes) -->
+        <!-- Capas de Niebla Atmosférica -->
+        <div class="capa-niebla capa-niebla-1"></div>
+        <div class="capa-niebla capa-niebla-2"></div>
+
+        <!-- Overlay atmosférico -->
         <div class="escena-overlay"></div>
 
         <!-- Hotspots Interactivos -->

@@ -12,7 +12,7 @@
             <a href="{{ url_for('jardinera.' ~ config.entidad ~ '_crear') }}" class="boton boton-primario">✨ Añadir Nuevo</a>
         </div>
 
-        <div class="panel-cristal" style="overflow-x: auto;">
+        <div class="panel-cristal" style="overflow-x: auto; position: relative; z-index: 100; background: rgba(255,255,255,0.95);">
             {% if items %}
             <table class="canasto-tabla" style="width: 100%;">
                 <thead>
@@ -30,12 +30,14 @@
                         <td>{{ item|attr(atributo) }}</td>
                         {% endfor %}
                         <td>
-                            <div style="display: flex; gap: 0.5rem;">
+                            <div style="display: flex; gap: 0.5rem; position: relative; z-index: 200;">
                                 <a href="{{ url_for('jardinera.' ~ config.entidad ~ '_editar', id=item.id) }}" class="boton boton-fantasma" style="padding: 4px 10px; font-size: 0.8rem;">Editar</a>
-                                <form action="{{ url_for('jardinera.' ~ config.entidad ~ '_eliminar', id=item.id) }}" method="POST" style="margin:0;" onsubmit="return confirm('¿Estás segura de eliminar esta semilla?');">
-                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                    <button type="submit" class="boton boton-primario" style="background: var(--vinotinto); padding: 4px 10px; font-size: 0.8rem; border-color: var(--vinotinto);">Borrar</button>
-                                </form>
+                                <a href="{{ url_for('jardinera.' ~ config.entidad ~ '_eliminar', id=item.id) }}" 
+                                   class="boton boton-primario" 
+                                   style="background: var(--vinotinto); padding: 4px 10px; font-size: 0.8rem; border-color: var(--vinotinto); cursor: pointer;"
+                                   onclick="return confirm('¿Estás segura de eliminar esta semilla definitivamente?');">
+                                   Borrar
+                                </a>
                             </div>
                         </td>
                     </tr>

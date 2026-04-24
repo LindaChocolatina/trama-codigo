@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block titulo %}El Bosque de Pinos — Tienda | Trama & Código{% endblock %}
 {% block contenido %}
-<div class="seccion-header" style="padding-top: 120px;">
+<div class="seccion-header">
+    <div class="header-imagen-decorativa">
+        <img src="{{ url_for('static', filename='img/secciones/forest.gif') }}" alt="Bosque">
+    </div>
     <h1>El Bosque de Pinos</h1>
     <p class="subtitulo">Tesoros esperando ser recolectados en tu canasto</p>
 </div>

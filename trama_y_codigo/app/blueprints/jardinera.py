@@ -136,7 +136,7 @@ def flores_editar(id):
         return redirect(url_for('jardinera.flores_index'))
     return render_template('jardinera/crud_form.html', form=form, titulo=f'Editar: {flor.titulo}', volver_url=url_for('jardinera.flores_index'), imagen_actual=flor.imagen_url)
 
-@bp.route('/jardinera/flores/<int:id>/eliminar', methods=['POST'])
+@bp.route('/jardinera/flores/<int:id>/eliminar', methods=['GET', 'POST'])
 @login_required
 def flores_eliminar(id):
     from app.models.semillero import ProyectoSoftware
@@ -200,7 +200,7 @@ def tramas_editar(id):
         return redirect(url_for('jardinera.tramas_index'))
     return render_template('jardinera/crud_form.html', form=form, titulo=f'Editar: {trama.titulo_pieza}', volver_url=url_for('jardinera.tramas_index'), imagen_actual=trama.imagen_url)
 
-@bp.route('/jardinera/tramas/<int:id>/eliminar', methods=['POST'])
+@bp.route('/jardinera/tramas/<int:id>/eliminar', methods=['GET', 'POST'])
 @login_required
 def tramas_eliminar(id):
     from app.models.tramas import ProyectoFibras
@@ -262,7 +262,7 @@ def bitacora_editar(id):
         return redirect(url_for('jardinera.bitacora_index'))
     return render_template('jardinera/crud_form.html', form=form, titulo=f'Editar: {entrada.titulo_entrada}', volver_url=url_for('jardinera.bitacora_index'), imagen_actual=entrada.imagen_url)
 
-@bp.route('/jardinera/bitacora/<int:id>/eliminar', methods=['POST'])
+@bp.route('/jardinera/bitacora/<int:id>/eliminar', methods=['GET', 'POST'])
 @login_required
 def bitacora_eliminar(id):
     from app.models.refugio import EntradaBitacora
@@ -328,7 +328,7 @@ def tesoros_editar(id):
         return redirect(url_for('jardinera.tesoros_index'))
     return render_template('jardinera/crud_form.html', form=form, titulo=f'Editar: {tesoro.producto}', volver_url=url_for('jardinera.tesoros_index'), imagen_actual=tesoro.imagen_url)
 
-@bp.route('/jardinera/tesoros/<int:id>/eliminar', methods=['POST'])
+@bp.route('/jardinera/tesoros/<int:id>/eliminar', methods=['GET', 'POST'])
 @login_required
 def tesoros_eliminar(id):
     from app.models.bosque import ProductoBosque

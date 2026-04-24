@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block titulo %}El Micelio — Contacto | Trama & Código{% endblock %}
 {% block contenido %}
-<div class="seccion-header" style="padding-top: 120px;">
+<div class="seccion-header">
+    <div class="header-imagen-decorativa">
+        <img src="{{ url_for('static', filename='img/secciones/mushroom.jpg') }}" alt="Micelio">
+    </div>
     <h1>El Micelio</h1>
     <p class="subtitulo">Envía una raíz al bosque — conectemos bajo tierra</p>
 </div>

@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block titulo %}El Semillero — Software | Trama & Código{% endblock %}
 {% block contenido %}
-<div class="seccion-header" style="padding-top: 120px;">
+<div class="seccion-header">
+    <div class="header-imagen-decorativa">
+        <img src="{{ url_for('static', filename='img/secciones/mariposas.gif') }}" alt="Mariposas" class="imagen-optimizada">
+    </div>
     <h1>El Semillero</h1>
     <p class="subtitulo">Cada flor es un proyecto que brotó de una semilla de código</p>
 </div>

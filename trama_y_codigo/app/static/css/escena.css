@@ -12,20 +12,19 @@
 .escena-paisaje {
     position: relative;
     width: 100%;
-    min-height: 100vh;
-    overflow: hidden;
+    min-height: 100vh; /* Permite que el contenido fluya */
+    overflow-x: hidden;
     background-color: var(--noche-profunda);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 .mapa-contenedor {
     position: relative;
     width: 100%;
     max-width: 1920px;
     margin: 0 auto;
-    /* Aspect ratio fallback si la imagen tarda en cargar */
-    min-height: 50vh;
+    min-height: 90vh; /* Ajuste para dar espacio al footer */
 }
 .mapa-imagen {
     width: 100%;
@@ -169,6 +168,54 @@
     z-index: 4;
     pointer-events: none;
 }
+/* ── NIEBLA ATMOSFÉRICA ── */
+.capa-niebla {
+    position: absolute;
+    top: 0; left: 0;
+    width: 200%; height: 100%;
+    z-index: 4;
+    pointer-events: none;
+    background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); /* Textura sutil */
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    filter: blur(40px);
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.modo-solar .capa-niebla { opacity: 0.15; }
+.modo-nocturno .capa-niebla { opacity: 0.3; background: radial-gradient(circle, rgba(13, 17, 23, 0.4) 0%, transparent 80%); }
+
+.capa-niebla-1 {
+    animation: moverNiebla 60s linear infinite;
+}
+.capa-niebla-2 {
+    animation: moverNiebla 40s linear infinite reverse;
+    opacity: 0.1;
+}
+
+@keyframes moverNiebla {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* ── VIDA SILVESTRE (JS Controlled) ── */
+.ser-volador {
+    position: fixed;
+    z-index: 50;
+    pointer-events: none;
+    font-size: 1.2rem;
+    user-select: none;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    transition: transform 0.1s linear;
+}
+
+.abeja { 
+    filter: saturate(1.5) drop-shadow(0 0 5px rgba(192, 149, 40, 0.3)); 
+}
+.mariposa-nocturna { 
+    filter: hue-rotate(180deg) brightness(1.2) drop-shadow(0 0 8px rgba(255,255,255,0.4));
+}
+
 @keyframes brillar-estrella {
     0%, 100% { opacity: 0.3; transform: scale(1); }
     50% { opacity: 1; transform: scale(1.5); }

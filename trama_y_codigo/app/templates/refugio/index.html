@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block titulo %}El Refugio — Blog | Trama & Código{% endblock %}
 {% block contenido %}
-<div class="seccion-fondo" style="background-image: url('{{ url_for('static', filename='img/escena/casita.gif') }}');">
-    <div class="seccion-header">
-        <h1>El Refugio</h1>
-        <p class="subtitulo">Bitácora de reflexiones junto al fuego</p>
+<div class="seccion-header">
+    <div class="header-imagen-decorativa">
+        <img src="{{ url_for('static', filename='img/secciones/refugio.gif') }}" alt="Refugio">
     </div>
+    <h1>El Refugio</h1>
+    <p class="subtitulo">Bitácora de reflexiones junto al fuego</p>
 </div>
 <section class="seccion">
     <div class="contenedor">

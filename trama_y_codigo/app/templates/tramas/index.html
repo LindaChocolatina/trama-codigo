@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block titulo %}Las Tramas — Fibras | Trama & Código{% endblock %}
 {% block contenido %}
-<div class="seccion-header" style="padding-top: 120px;">
+<div class="seccion-header">
+    <div class="header-imagen-decorativa">
+        <img src="{{ url_for('static', filename='img/secciones/spiderweb.gif') }}" alt="Araña">
+    </div>
     <h1>Las Tramas</h1>
     <p class="subtitulo">El arte de tejer donde cada hilo cuenta una historia</p>
 </div>
