@@ -8,8 +8,62 @@
             <h1>{{ entrada.titulo_entrada }}</h1>
             <p class="card-jardin-meta">{{ entrada.fecha_publicacion }}</p>
         </div>
-        <div class="refugio-contenido">{{ entrada.contenido_calido }}</div>
-        <div style="margin-top: 2rem;">
+        <div class="refugio-contenido">
+            {% if entrada.imagen_url %}
+            <img src="{{ url_for('static', filename='uploads/imagenes/' ~ entrada.imagen_url) }}" alt="Imagen de {{ entrada.titulo_entrada }}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: var(--radio-suave); margin-bottom: 2rem;">
+            {% endif %}
+            {{ entrada.contenido_calido }}
+        </div>
+        
+        <!-- Sección de Comentarios -->
+        <div style="margin-top: 4rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 2rem;">
+            <h3 style="font-family: var(--fuente-manuscrita); color: var(--vinotinto); font-size: 1.5rem; margin-bottom: 1.5rem;">Huellas en el Refugio</h3>
+            
+            {% if entrada.comentarios.count() > 0 %}
+                <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
+                {% for c in entrada.comentarios %}
+                    <div style="background: rgba(255,255,255,0.4); padding: 1rem; border-radius: var(--radio-suave);">
+                        <p style="font-weight: bold; color: var(--carbon); margin-bottom: 0.25rem;">
+                            {{ c.usuario.username }} 
+                            {% if c.usuario.es_jardinera %} <span title="La Jardinera">🌿</span> {% endif %}
+                            <span style="font-size: 0.8rem; color: var(--carbon-suave); font-weight: normal; margin-left: 0.5rem;">{{ c.fecha_comentario.strftime('%Y-%m-%d') }}</span>
+                        </p>
+                        <p style="margin: 0; font-size: 0.95rem;">{{ c.contenido }}</p>
+                    </div>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p style="color: var(--carbon-suave); margin-bottom: 3rem;">Aún no hay huellas aquí. Sé el primero en dejar una semilla de pensamiento.</p>
+            {% endif %}
+
+            <!-- Formulario de Comentarios -->
+            {% if current_user.is_authenticated %}
+                <div style="background: rgba(255,255,255,0.6); padding: 1.5rem; border-radius: var(--radio-suave);">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        <div class="form-grupo">
+                            {{ form.contenido.label }}
+                            {{ form.contenido(class="form-control", rows="3", placeholder="Tus pensamientos...") }}
+                            {% if form.contenido.errors %}
+                                <ul style="color: var(--vinotinto); font-size: 0.85rem; margin-top: 0.25rem;">
+                                {% for error in form.contenido.errors %}<li>{{ error }}</li>{% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            {{ form.submit(class="boton boton-primario") }}
+                        </div>
+                    </form>
+                </div>
+            {% else %}
+                <div style="text-align: center; background: rgba(255,255,255,0.3); padding: 2rem; border-radius: var(--radio-suave);">
+                    <p style="margin-bottom: 1rem;">Inicia sesión o regístrate para dejar tus huellas en este refugio.</p>
+                    <a href="{{ url_for('auth.login', next=request.path) }}" class="boton boton-primario">Entrar</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div style="margin-top: 3rem; text-align: center;">
             <a href="{{ url_for('refugio.index') }}" class="boton boton-fantasma">← Volver al refugio</a>
         </div>
     </div>

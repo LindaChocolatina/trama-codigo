@@ -4,53 +4,50 @@
 
 {% block contenido %}
 <div class="escena-paisaje modo-{{ estado.franja }}" id="escena-principal">
-    <!-- Fondos del paisaje -->
-    <div class="escena-fondo escena-fondo--solar" style="opacity: {{ '1' if estado.franja == 'solar' else '0' }};"></div>
-    <div class="escena-fondo escena-fondo--nocturno" style="opacity: {{ '1' if estado.franja == 'nocturno' else '0' }};"></div>
+    <!-- Contenedor del Mapa Interactivo -->
+    <div class="mapa-contenedor">
+        <!-- Imágenes de Fondo como Elementos de Bloque para mantener el aspect ratio -->
+        <img src="{{ url_for('static', filename='img/escena/paisaje_solar.png') }}" alt="Paisaje de Día" class="mapa-imagen mapa-imagen--solar" style="opacity: {{ '1' if estado.franja == 'solar' else '0' }};">
+        <img src="{{ url_for('static', filename='img/escena/paisaje_nocturno.png') }}" alt="Paisaje de Noche" class="mapa-imagen mapa-imagen--nocturno" style="opacity: {{ '1' if estado.franja == 'nocturno' else '0' }};">
 
-    <!-- Overlay atmosférico -->
-    <div class="escena-overlay"></div>
+        <!-- Overlay atmosférico (Opcional, puede ir sobre las imágenes) -->
+        <div class="escena-overlay"></div>
 
-    <!-- Contenido principal -->
-    <div class="escena-contenido">
-        <div class="bienvenida">
+        <!-- Hotspots Interactivos -->
+        <a href="{{ url_for('refugio.index') }}" class="hotspot hotspot-refugio" title="El Refugio (Blog)">
+            <span class="hotspot-pulso"></span>
+            <span class="hotspot-etiqueta">🏡 El Refugio</span>
+        </a>
+
+        <a href="{{ url_for('semillero.index') }}" class="hotspot hotspot-semillero" title="El Semillero (Software)">
+            <span class="hotspot-pulso"></span>
+            <span class="hotspot-etiqueta">🌱 El Semillero</span>
+        </a>
+
+        <a href="{{ url_for('tramas.index') }}" class="hotspot hotspot-tramas" title="Las Tramas (Fibras)">
+            <span class="hotspot-pulso"></span>
+            <span class="hotspot-etiqueta">🕸️ Las Tramas</span>
+        </a>
+
+        <a href="{{ url_for('bosque.index') }}" class="hotspot hotspot-bosque" title="El Bosque (Tienda)">
+            <span class="hotspot-pulso"></span>
+            <span class="hotspot-etiqueta">🌲 El Bosque</span>
+        </a>
+
+        <a href="{{ url_for('retrato.index') }}" class="hotspot hotspot-retrato" title="El Retrato (Sobre mí)">
+            <span class="hotspot-pulso"></span>
+            <span class="hotspot-etiqueta">🦋 El Retrato</span>
+        </a>
+
+        <a href="{{ url_for('micelio.index') }}" class="hotspot hotspot-micelio" title="El Micelio (Contacto)">
+            <span class="hotspot-pulso"></span>
+            <span class="hotspot-etiqueta">🍄 El Micelio</span>
+        </a>
+
+        <!-- Mensaje de Bienvenida Flotante -->
+        <div class="bienvenida-flotante">
             <h1 class="bienvenida-titulo">Trama & Código</h1>
             <p class="bienvenida-subtitulo">donde el código respira y las fibras tejen historias</p>
-            <p class="bienvenida-saludo">{{ saludo }}</p>
-
-            <!-- Los 6 movimientos del paisaje -->
-            <div class="movimientos">
-                <a href="{{ url_for('refugio.index') }}" class="movimiento" id="mov-refugio">
-                    <span class="movimiento-icono">🏡</span>
-                    <span class="movimiento-nombre">El Refugio</span>
-                    <span class="movimiento-desc">Blog & Bitácora</span>
-                </a>
-                <a href="{{ url_for('semillero.index') }}" class="movimiento" id="mov-semillero">
-                    <span class="movimiento-icono">🌱</span>
-                    <span class="movimiento-nombre">El Semillero</span>
-                    <span class="movimiento-desc">Software</span>
-                </a>
-                <a href="{{ url_for('tramas.index') }}" class="movimiento" id="mov-tramas">
-                    <span class="movimiento-icono">🕸️</span>
-                    <span class="movimiento-nombre">Las Tramas</span>
-                    <span class="movimiento-desc">Fibras & Tejido</span>
-                </a>
-                <a href="{{ url_for('bosque.index') }}" class="movimiento" id="mov-bosque">
-                    <span class="movimiento-icono">🌲</span>
-                    <span class="movimiento-nombre">El Bosque</span>
-                    <span class="movimiento-desc">Tienda</span>
-                </a>
-                <a href="{{ url_for('retrato.index') }}" class="movimiento" id="mov-retrato">
-                    <span class="movimiento-icono">🦋</span>
-                    <span class="movimiento-nombre">El Retrato</span>
-                    <span class="movimiento-desc">Sobre mí</span>
-                </a>
-                <a href="{{ url_for('micelio.index') }}" class="movimiento" id="mov-micelio">
-                    <span class="movimiento-icono">🍄</span>
-                    <span class="movimiento-nombre">El Micelio</span>
-                    <span class="movimiento-desc">Contacto</span>
-                </a>
-            </div>
         </div>
     </div>
 

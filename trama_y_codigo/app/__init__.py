@@ -44,6 +44,8 @@ def create_app(entorno='default'):
     from app.blueprints.canasto import bp as canasto_bp
     from app.blueprints.jardinera import bp as jardinera_bp
 
+    from app.blueprints import jardin, refugio, semillero, tramas, bosque, micelio, retrato, canasto, jardinera, auth
+
     app.register_blueprint(jardin_bp)
     app.register_blueprint(refugio_bp)
     app.register_blueprint(semillero_bp)
@@ -53,6 +55,7 @@ def create_app(entorno='default'):
     app.register_blueprint(retrato_bp)
     app.register_blueprint(canasto_bp)
     app.register_blueprint(jardinera_bp)
+    app.register_blueprint(auth.bp)
 
     # ── Context Processor: Inyectar el estado del mundo en todas las plantillas ──
     @app.context_processor

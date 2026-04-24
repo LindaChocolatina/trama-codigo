@@ -46,3 +46,26 @@ class TesoroForm(FlaskForm):
     descripcion = TextAreaField('Descripción del Tesoro', validators=[Optional()])
     imagen = FileField('Imagen del Producto', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif', 'webp'], 'Solo se permiten imágenes.')])
     submit = SubmitField('Añadir al Inventario')
+
+
+# ═══════════════════════════════════════════════════
+# FORMULARIOS DE COMUNIDAD (Auth y Blog)
+# ═══════════════════════════════════════════════════
+
+from wtforms.validators import Email, EqualTo
+
+class LoginForm(FlaskForm):
+    email = StringField('Correo Mágico', validators=[DataRequired(), Email()])
+    contrasena = StringField('Palabra Secreta (Contraseña)', validators=[DataRequired()])
+    submit = SubmitField('Ingresar')
+
+class RegistroForm(FlaskForm):
+    username = StringField('Tu Apodo o Nombre', validators=[DataRequired(), Length(min=3, max=100)])
+    email = StringField('Correo Mágico', validators=[DataRequired(), Email()])
+    contrasena = StringField('Palabra Secreta (Contraseña)', validators=[DataRequired(), Length(min=6)])
+    confirmar_contrasena = StringField('Confirmar Palabra Secreta (Contraseña)', validators=[DataRequired(), EqualTo('contrasena', message='Las palabras secretas no coinciden.')])
+    submit = SubmitField('Unirme a la Comunidad')
+
+class ComentarioForm(FlaskForm):
+    contenido = TextAreaField('Deja tus huellas aquí...', validators=[DataRequired(), Length(max=1000)])
+    submit = SubmitField('Comentar')

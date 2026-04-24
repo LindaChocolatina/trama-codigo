@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block titulo %}Únete a la Comunidad | Trama & Código{% endblock %}
+{% block contenido %}
+<div class="seccion-header" style="padding-top: 120px;">
+    <h1>🌱 Planta tu Semilla</h1>
+    <p class="subtitulo">Únete para comentar en el refugio y ser parte del ecosistema</p>
+</div>
+<section class="seccion">
+    <div class="contenedor-estrecho">
+        <div class="panel-cristal">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-grupo">
+                    {{ form.username.label }}
+                    {{ form.username(class="form-control", placeholder="¿Cómo te llamamos?") }}
+                    {% if form.username.errors %}
+                        <ul style="color: var(--vinotinto); font-size: 0.85rem; margin-top: 0.25rem;">
+                        {% for error in form.username.errors %}<li>{{ error }}</li>{% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-grupo">
+                    {{ form.email.label }}
+                    {{ form.email(class="form-control", placeholder="Tu correo de contacto") }}
+                    {% if form.email.errors %}
+                        <ul style="color: var(--vinotinto); font-size: 0.85rem; margin-top: 0.25rem;">
+                        {% for error in form.email.errors %}<li>{{ error }}</li>{% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-grupo">
+                    {{ form.contrasena.label }}
+                    {{ form.contrasena(class="form-control", type="password") }}
+                    {% if form.contrasena.errors %}
+                        <ul style="color: var(--vinotinto); font-size: 0.85rem; margin-top: 0.25rem;">
+                        {% for error in form.contrasena.errors %}<li>{{ error }}</li>{% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-grupo">
+                    {{ form.confirmar_contrasena.label }}
+                    {{ form.confirmar_contrasena(class="form-control", type="password") }}
+                    {% if form.confirmar_contrasena.errors %}
+                        <ul style="color: var(--vinotinto); font-size: 0.85rem; margin-top: 0.25rem;">
+                        {% for error in form.confirmar_contrasena.errors %}<li>{{ error }}</li>{% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    {{ form.submit(class="boton boton-primario", style="width: 100%; justify-content: center;") }}
+                </div>
+            </form>
+            <div style="margin-top: 2rem; text-align: center; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 1rem;">
+                <p style="color: var(--carbon-suave);">¿Ya dejaste tu huella antes?</p>
+                <a href="{{ url_for('auth.login') }}" style="color: var(--vinotinto); text-decoration: underline; font-weight: bold;">Entra por la puerta principal</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -9,36 +9,6 @@ from app.models.usuario import Usuario
 
 bp = Blueprint('jardinera', __name__, template_folder='../templates/jardinera')
 
-
-@bp.route('/jardinera/login', methods=['GET', 'POST'])
-def login():
-    """La puerta del jardín — Identificarse como jardinera."""
-    if current_user.is_authenticated:
-        return redirect(url_for('jardinera.dashboard'))
-
-    if request.method == 'POST':
-        email = request.form.get('email', '').strip()
-        contrasena = request.form.get('contrasena', '')
-
-        usuario = Usuario.query.filter_by(email=email).first()
-        if usuario and usuario.verificar_contrasena(contrasena):
-            login_user(usuario)
-            flash('Bienvenida de vuelta al jardín.', 'exito')
-            return redirect(url_for('jardinera.dashboard'))
-        flash('Las credenciales no coinciden con ninguna semilla plantada.', 'error')
-
-    return render_template('jardinera/login.html')
-
-
-@bp.route('/jardinera/logout')
-@login_required
-def logout():
-    """Cerrar el portón del jardín."""
-    logout_user()
-    flash('Has dejado el jardín. Vuelve pronto.', 'info')
-    return redirect(url_for('jardin.escena'))
-
-
 @bp.route('/jardinera')
 @login_required
 def dashboard():

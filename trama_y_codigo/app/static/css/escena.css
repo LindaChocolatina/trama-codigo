@@ -9,125 +9,140 @@
     overflow: hidden;
     transition: var(--transicion-lenta);
 }
-.escena-fondo {
+.escena-paisaje {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: var(--noche-profunda);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mapa-contenedor {
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    /* Aspect ratio fallback si la imagen tarda en cargar */
+    min-height: 50vh;
+}
+.mapa-imagen {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 1.5s ease;
     position: absolute;
     top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: opacity 1.5s ease;
 }
-.escena-fondo--solar { background-image: url('/static/img/escena/paisaje_solar.png'); z-index: 1; }
-.escena-fondo--nocturno { background-image: url('/static/img/escena/paisaje_nocturno.png'); z-index: 1; }
+.mapa-imagen--solar { position: relative; z-index: 1; }
+.mapa-imagen--nocturno { z-index: 2; }
+
 .escena-overlay {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    z-index: 2;
+    z-index: 3;
     transition: var(--transicion-lenta);
     pointer-events: none;
 }
 .modo-solar .escena-overlay {
-    background: linear-gradient(180deg, rgba(209,213,210,0.2) 0%, rgba(245,240,232,0.1) 40%, rgba(192,149,40,0.05) 100%);
+    background: linear-gradient(180deg, rgba(209,213,210,0.1) 0%, rgba(245,240,232,0.05) 50%, rgba(192,149,40,0.05) 100%);
 }
 .modo-nocturno .escena-overlay {
-    background: linear-gradient(180deg, rgba(13,17,23,0.6) 0%, rgba(26,35,50,0.4) 50%, rgba(13,17,23,0.5) 100%);
+    background: linear-gradient(180deg, rgba(13,17,23,0.4) 0%, rgba(26,35,50,0.3) 50%, rgba(13,17,23,0.4) 100%);
 }
-.escena-contenido {
-    position: relative;
+
+/* ── HOTSPOTS (Puntos Interactivos) ── */
+.hotspot {
+    position: absolute;
     z-index: 10;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    padding: var(--espacio-2xl);
-    text-align: center;
-}
-.bienvenida {
-    max-width: 700px;
-    padding: var(--espacio-2xl);
-    animation: aparecer 1.2s ease forwards;
-}
-.modo-solar .bienvenida {
-    background: rgba(245,240,232,0.8);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: var(--radio-grande);
-    box-shadow: 0 8px 32px rgba(99,14,22,0.08);
-}
-.modo-nocturno .bienvenida {
-    background: rgba(13,17,23,0.8);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(232,217,176,0.1);
-    border-radius: var(--radio-grande);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-}
-.bienvenida-titulo {
-    font-family: var(--fuente-titulo);
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: var(--espacio-sm);
-}
-.modo-solar .bienvenida-titulo { color: var(--vinotinto); }
-.modo-nocturno .bienvenida-titulo { color: var(--luna); }
-.bienvenida-subtitulo {
-    font-family: var(--fuente-manuscrita);
-    font-size: 1.5rem;
-    margin-bottom: var(--espacio-lg);
-}
-.modo-solar .bienvenida-subtitulo { color: var(--verde-musgo); }
-.modo-nocturno .bienvenida-subtitulo { color: var(--ocre-dorado-suave); }
-.bienvenida-saludo {
-    font-family: var(--fuente-cuerpo);
-    font-weight: 300;
-    font-size: 1rem;
-    line-height: 1.8;
-    margin-bottom: var(--espacio-xl);
-}
-.modo-solar .bienvenida-saludo { color: var(--carbon-suave); }
-.modo-nocturno .bienvenida-saludo { color: var(--gris-niebla); }
-.movimientos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--espacio-md);
-    margin-top: var(--espacio-lg);
-    width: 100%;
-}
-.movimiento {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--espacio-xs);
-    padding: var(--espacio-md);
-    border-radius: var(--radio-medio);
-    cursor: pointer;
     text-decoration: none;
-    transition: var(--transicion-suave);
+    cursor: pointer;
 }
-.modo-solar .movimiento {
-    background: rgba(255,255,255,0.4);
-    border: 1px solid rgba(255,255,255,0.3);
-    color: var(--carbon);
+
+.hotspot-pulso {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: var(--ocre-dorado);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--ocre-dorado);
 }
-.modo-solar .movimiento:hover {
-    background: rgba(255,255,255,0.7);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+
+.hotspot-pulso::after {
+    content: '';
+    position: absolute;
+    top: -5px; left: -5px; right: -5px; bottom: -5px;
+    border-radius: 50%;
+    border: 2px solid var(--ocre-dorado);
+    animation: pulso-mapa 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
 }
-.modo-nocturno .movimiento {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(232,217,176,0.1);
-    color: var(--gris-niebla);
+
+@keyframes pulso-mapa {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
 }
-.modo-nocturno .movimiento:hover {
-    background: rgba(232,217,176,0.1);
-    transform: translateY(-4px);
+
+.hotspot-etiqueta {
+    position: absolute;
+    top: -40px;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.9);
+    color: var(--vinotinto);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: var(--fuente-titulo);
+    font-size: 0.9rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    border: 1px solid var(--ocre-dorado-suave);
 }
-.movimiento-icono { font-size: 1.8rem; margin-bottom: var(--espacio-xs); }
-.movimiento-nombre { font-family: var(--fuente-titulo); font-size: 0.9rem; font-weight: 600; }
-.movimiento-desc { font-size: 0.7rem; opacity: 0.7; font-weight: 300; }
+
+.modo-nocturno .hotspot-etiqueta {
+    background: rgba(13,17,23,0.9);
+    color: var(--luna);
+    border-color: rgba(232,217,176,0.3);
+}
+
+.hotspot:hover .hotspot-etiqueta {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hotspot:hover .hotspot-pulso {
+    background-color: var(--vinotinto);
+    box-shadow: 0 0 15px var(--vinotinto);
+}
+
+/* Coordenadas provisionales (Porcentajes relativos a la imagen) */
+.hotspot-refugio { top: 60%; left: 30%; } /* Casita */
+.hotspot-retrato { top: 50%; left: 50%; } /* Figura femenina */
+.hotspot-tramas { top: 30%; left: 70%; } /* Telaraña */
+.hotspot-micelio { top: 80%; left: 60%; } /* Hongos */
+.hotspot-semillero { top: 75%; left: 40%; } /* Flores */
+.hotspot-bosque { top: 40%; left: 20%; } /* Pinos */
+
+/* ── BIENVENIDA FLOTANTE ── */
+.bienvenida-flotante {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    text-align: center;
+    pointer-events: none;
+}
 .luciernaga {
     position: absolute;
     width: 4px; height: 4px;

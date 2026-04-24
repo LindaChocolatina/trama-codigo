@@ -38,6 +38,19 @@
                 <li><a href="{{ url_for('bosque.index') }}">Bosque</a></li>
                 <li><a href="{{ url_for('retrato.index') }}">Retrato</a></li>
                 <li><a href="{{ url_for('micelio.index') }}">Micelio</a></li>
+                
+                <li style="margin-left: 1rem; border-left: 1px solid rgba(0,0,0,0.1); padding-left: 1rem;">
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.es_jardinera %}
+                            <a href="{{ url_for('jardinera.dashboard') }}" style="color: var(--vinotinto); font-weight: bold;">🌱 Panel</a>
+                        {% else %}
+                            <span style="color: var(--vinotinto); font-size: 0.9rem; margin-right: 0.5rem;">Hola, {{ current_user.username }}</span>
+                        {% endif %}
+                        <a href="{{ url_for('auth.logout') }}" style="font-size: 0.8rem;">Salir</a>
+                    {% else %}
+                        <a href="{{ url_for('auth.login') }}" style="font-weight: bold; color: var(--vinotinto);">Ingresar</a>
+                    {% endif %}
+                </li>
             </ul>
         </div>
     </nav>
