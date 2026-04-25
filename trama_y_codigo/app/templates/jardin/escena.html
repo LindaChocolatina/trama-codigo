@@ -7,8 +7,8 @@
     <!-- Contenedor del Mapa Interactivo -->
     <div class="mapa-contenedor">
         <!-- Imágenes de Fondo -->
-        <img src="{{ url_for('static', filename='img/escena/paisaje_solar.png') }}" alt="Paisaje de Día" class="mapa-imagen mapa-imagen--solar" style="opacity: {{ '1' if estado.franja == 'solar' else '0' }};">
-        <img src="{{ url_for('static', filename='img/escena/paisaje_nocturno.png') }}" alt="Paisaje de Noche" class="mapa-imagen mapa-imagen--nocturno" style="opacity: {{ '1' if estado.franja == 'nocturno' else '0' }};">
+        <img src="{{ url_for('static', filename='img/escena/dia.gif') }}" alt="Paisaje de Día" class="mapa-imagen mapa-imagen--solar" style="opacity: {{ '1' if estado.franja == 'solar' else '0' }};">
+        <img src="{{ url_for('static', filename='img/escena/noche.gif') }}" alt="Paisaje de Noche" class="mapa-imagen mapa-imagen--nocturno" style="opacity: {{ '1' if estado.franja == 'nocturno' else '0' }};">
 
         <!-- Capas de Niebla Atmosférica -->
         <div class="capa-niebla capa-niebla-1"></div>
