@@ -222,11 +222,11 @@ a:hover {
 
 .navegacion-links a {
     font-family: var(--fuente-cuerpo);
-    font-size: 0.85rem;
-    font-weight: 400;
+    font-size: 0.95rem;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--carbon-suave);
+    color: var(--carbon);
     text-decoration: none;
     padding: var(--espacio-xs) var(--espacio-sm);
     position: relative;
@@ -393,13 +393,14 @@ a:hover {
 }
 
 .footer p {
-    font-size: 0.85rem;
-    opacity: 0.8;
+    font-size: 0.95rem;
+    opacity: 0.9;
+    color: var(--gris-niebla-claro);
 }
 
 .footer a {
-    color: var(--gris-niebla);
-    font-size: 0.85rem;
+    color: var(--gris-niebla-claro);
+    font-size: 0.95rem;
     display: block;
     margin-bottom: var(--espacio-xs);
 }

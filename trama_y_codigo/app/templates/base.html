@@ -49,6 +49,8 @@
                         <a href="{{ url_for('auth.logout') }}" style="font-size: 0.8rem;">Salir</a>
                     {% else %}
                         <a href="{{ url_for('auth.login') }}" style="font-weight: bold; color: var(--vinotinto);">Ingresar</a>
+                        <span style="margin: 0 0.5rem; opacity: 0.3;">|</span>
+                        <a href="{{ url_for('auth.registro') }}" style="color: var(--carbon-suave);">Registrarse</a>
                     {% endif %}
                 </li>
             </ul>
@@ -102,7 +104,11 @@
             </div>
         </div>
         <div class="footer-firma">
-            "La normalidad nunca ha creado magia" ✨
+            <p>"La normalidad nunca ha creado magia" ✨</p>
+            <p style="font-family: var(--fuente-cuerpo); font-size: 0.75rem; margin-top: 1rem; opacity: 0.6; letter-spacing: 1px;">
+                &copy; 2026 TRAMA & CÓDIGO. TODOS LOS DERECHOS RESERVADOS. <br>
+                CULTIVADO CON AMOR EN EL BOSQUE DIGITAL.
+            </p>
         </div>
     </footer>
     {% endblock %}
