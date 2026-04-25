@@ -24,7 +24,7 @@ Este jardín ha sido plantado sobre cimientos sólidos y flexibles:
 - **Tierra:** SQLAlchemy + PostgreSQL (Supabase).
 - **Escudo:** Flask-WTF (CSRF Protection) & Flask-Login.
 - **Follaje:** HTML5 semántico y CSS3 puro, con un diseño responsivo inspirado en la estética **Verde Musgo & Vinotinto**.
-- **Despliegue:** [Render](https://render.com/) (Web Service) + [Supabase](https://supabase.com/) (Database).
+- **Florecimiento:** [Render](https://render.com/) (Web Service) + [Supabase](https://supabase.com/) (Database).
 
 ---
 
