@@ -253,6 +253,19 @@ a:hover {
     width: 100%;
 }
 
+/* Visibilidad en modo nocturno */
+.modo-nocturno .navegacion-links a {
+    color: var(--gris-niebla-claro);
+}
+
+.modo-nocturno .navegacion-logo {
+    color: var(--luna);
+}
+
+.modo-nocturno .navegacion-links a:hover {
+    color: var(--ocre-dorado);
+}
+
 /* Navegación con scroll */
 .navegacion.scrolled {
     background: var(--glass-bg);
