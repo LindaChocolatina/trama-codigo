@@ -18,8 +18,13 @@
                 <!-- Opcion Nequi -->
                 <div>
                     <h3 style="margin-bottom: 1rem; color: var(--vinotinto);">1. Nequi (Manual)</h3>
-                    <div style="background: rgba(0,0,0,0.03); padding: 1rem; border-radius: var(--radio-suave); margin-bottom: 1rem;">
-                        <p style="margin-bottom: 0.5rem;">Transfiere exactamente <strong>${{ '{:,.0f}'.format(pedido.total) }}</strong> a:</p>
+                    <div style="background: rgba(0,0,0,0.03); padding: 1.5rem; border-radius: var(--radio-suave); margin-bottom: 1rem; text-align: center;">
+                        <p style="margin-bottom: 1rem;">Escanea el código QR o transfiere a la cuenta:</p>
+                        
+                        <!-- Imagen del QR -->
+                        <img src="{{ url_for('static', filename='img/qr_nequi.jpeg') }}" alt="QR Nequi" 
+                             style="width: 200px; height: 200px; border: 5px solid white; border-radius: 12px; box-shadow: var(--sombra-sutil); margin-bottom: 1rem;">
+                        
                         <p style="font-size: 1.2rem; font-weight: bold; color: var(--verde-musgo); letter-spacing: 2px;">300 000 0000</p>
                         <p style="font-size: 0.8rem; opacity: 0.7;">A nombre de Trama & Código</p>
                     </div>
