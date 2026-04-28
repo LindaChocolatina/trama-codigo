@@ -13,7 +13,7 @@ from app.extensions import db, login_manager, csrf
 from app.services.reloj_logico import obtener_estado_mundo
 from datetime import datetime
 from sqlalchemy import text
-import os
+import os, sys, logging
 
 
 def create_app(entorno='default'):
@@ -74,19 +74,27 @@ def create_app(entorno='default'):
         db.create_all()
         _sembrar_datos_iniciales(app)
 
+    def get_log_path():
+        if os.name == 'nt': # Windows local
+            return os.path.join(app.root_path, 'error_log.txt')
+        return '/tmp/error_log.txt' # Linux/Render
+
     @app.errorhandler(500)
     def handle_500(e):
         import traceback
-        log_path = os.path.join(app.root_path, 'error_log.txt')
-        with open(log_path, 'a') as f:
-            f.write(f"\n--- ERROR 500 at {datetime.now()} ---\n")
-            f.write(traceback.format_exc())
-        return "Error Interno del Servidor. Se ha registrado el detalle en el log.", 500
+        error_info = traceback.format_exc()
+        logging.error(f"!!! ERROR 500 !!!\n{error_info}")
+        try:
+            with open(get_log_path(), 'a') as f:
+                f.write(f"\n--- ERROR 500 at {datetime.now()} ---\n")
+                f.write(error_info)
+        except:
+            pass
+        return "Error Interno del Servidor. Se ha registrado el detalle en el log del servidor.", 500
 
     @app.route('/debug-logs')
     def debug_logs():
         """Ruta temporal para ver qué está fallando."""
-        log_path = os.path.join(app.root_path, 'error_log.txt')
         db_status = "Desconocido"
         try:
             db.session.execute(text('SELECT 1'))
@@ -95,16 +103,26 @@ def create_app(entorno='default'):
             db_status = f"Error de Conexión: {str(e)}"
 
         logs = "No hay logs registrados todavía."
+        log_path = get_log_path()
         if os.path.exists(log_path):
             with open(log_path, 'r') as f:
                 logs = f.read()
         
+        env_info = f"Python {sys.version} | OS: {os.name} | Root: {app.root_path}"
+        
         return f"""
-        <h1>Diagnóstico del Jardín</h1>
-        <p><strong>Estado de Base de Datos:</strong> {db_status}</p>
-        <hr>
-        <h3>Logs de Error:</h3>
-        <pre>{logs}</pre>
+        <html>
+        <head><title>Diagnóstico T&C</title></head>
+        <body style="font-family: monospace; padding: 20px;">
+            <h1>🌿 Diagnóstico del Jardín</h1>
+            <p><strong>Entorno:</strong> {env_info}</p>
+            <p><strong>Estado de Base de Datos:</strong> {db_status}</p>
+            <p><strong>Ruta del Log:</strong> {log_path}</p>
+            <hr>
+            <h3>Logs de Error:</h3>
+            <pre style="background: #f4f4f4; padding: 15px; border: 1px solid #ddd;">{logs}</pre>
+        </body>
+        </html>
         """
 
     return app
