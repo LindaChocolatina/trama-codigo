@@ -4,10 +4,12 @@ from app.models.usuario import Usuario
 
 app = create_app('desarrollo')
 with app.app_context():
-    u = Usuario.query.filter_by(username='jardinera').first()
+    u = Usuario.query.filter_by(rol='administradora').first()
     if u:
-        u.plantar_contrasena('semilla2026')
+        u.username = 'LindaChocolatina'
+        u.email = 'lindasioc@gmail.com'
+        u.plantar_contrasena('Juanita1509:)')
         db.session.commit()
-        print(f"Password reset successfully for {u.username}")
+        print(f"Credenciales restauradas para {u.username} ({u.email})")
     else:
-        print("User 'jardinera' not found")
+        print("No se encontró usuario con rol 'administradora'")

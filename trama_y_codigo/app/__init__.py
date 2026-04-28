@@ -98,14 +98,21 @@ def _sembrar_datos_iniciales(app):
     jardinera = Usuario.query.filter_by(rol='administradora').first()
     if not jardinera:
         jardinera = Usuario(
-            username='jardinera',
+            username='LindaChocolatina',
             email='lindasioc@gmail.com',
             rol='administradora'
         )
-        jardinera.plantar_contrasena('semilla2026')
+        jardinera.plantar_contrasena('Juanita1509:)')
         db.session.add(jardinera)
         db.session.commit()
         print('[OK] Jardinera creada exitosamente.')
+    else:
+        # Forzar actualización por si se cambió algo en el código
+        jardinera.username = 'LindaChocolatina'
+        jardinera.email = 'lindasioc@gmail.com'
+        jardinera.plantar_contrasena('Juanita1509:)')
+        db.session.commit()
+        print('[OK] Credenciales de Jardinera actualizadas.')
     
     # Si ya hay otros datos, no sembrar el resto
     if ProyectoSoftware.query.first():
