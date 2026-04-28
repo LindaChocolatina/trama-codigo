@@ -85,7 +85,7 @@ html {
 
 body {
     font-family: var(--fuente-cuerpo);
-    font-weight: 400;
+    font-weight: 300;
     line-height: 1.7;
     color: var(--carbon);
     background-color: var(--crema);
@@ -111,7 +111,7 @@ h4 { font-size: 1.2rem; }
 
 p {
     margin-bottom: var(--espacio-md);
-    font-weight: 400;
+    font-weight: 300;
 }
 
 .texto-manuscrito {
@@ -222,12 +222,11 @@ a:hover {
 
 .navegacion-links a {
     font-family: var(--fuente-cuerpo);
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--carbon);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
     text-decoration: none;
     padding: var(--espacio-xs) var(--espacio-sm);
     position: relative;
@@ -257,6 +256,11 @@ a:hover {
 /* Visibilidad en modo nocturno */
 .modo-nocturno .navegacion-links a {
     color: var(--gris-niebla-claro);
+}
+
+/* El resplandor mágico solo en el inicio durante la noche */
+.pagina-inicio.modo-nocturno .navegacion-links a {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(192, 149, 40, 0.2);
 }
 
 .modo-nocturno .navegacion-logo {

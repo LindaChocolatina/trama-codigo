@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/secciones.css') }}">
     {% block css_extra %}{% endblock %}
 </head>
-<body class="modo-{{ estado_mundo.franja }}">
+<body class="modo-{{ estado_mundo.franja }} {% block body_class %}{% endblock %}">
 
     <!-- Navegación -->
     <nav class="navegacion" id="navegacion-principal">
