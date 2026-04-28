@@ -12,6 +12,7 @@ from app.config import configuraciones
 from app.extensions import db, login_manager, csrf
 from app.services.reloj_logico import obtener_estado_mundo
 from datetime import datetime
+from sqlalchemy import text
 import os
 
 
@@ -86,10 +87,25 @@ def create_app(entorno='default'):
     def debug_logs():
         """Ruta temporal para ver qué está fallando."""
         log_path = os.path.join(app.root_path, 'error_log.txt')
+        db_status = "Desconocido"
+        try:
+            db.session.execute(text('SELECT 1'))
+            db_status = "Conectada (OK)"
+        except Exception as e:
+            db_status = f"Error de Conexión: {str(e)}"
+
+        logs = "No hay logs registrados todavía."
         if os.path.exists(log_path):
             with open(log_path, 'r') as f:
-                return f"<pre>{f.read()}</pre>"
-        return "No hay logs registrados todavía."
+                logs = f.read()
+        
+        return f"""
+        <h1>Diagnóstico del Jardín</h1>
+        <p><strong>Estado de Base de Datos:</strong> {db_status}</p>
+        <hr>
+        <h3>Logs de Error:</h3>
+        <pre>{logs}</pre>
+        """
 
     return app
 
