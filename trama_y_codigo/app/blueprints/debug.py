@@ -23,6 +23,17 @@ def debug_logs():
     if os.path.exists(log_path):
         with open(log_path, 'r') as f:
             logs = f.read()
+
+    admin_check = "No verificado"
+    try:
+        from app.models.usuario import Usuario
+        admin = Usuario.query.filter_by(rol='administradora').first()
+        if admin:
+            admin_check = f"Encontrada: {admin.username} ({admin.email})"
+        else:
+            admin_check = "NO ENCONTRADA"
+    except Exception as e:
+        admin_check = f"Error al buscar admin: {str(e)}"
     
     env_info = f"Python {sys.version} | OS: {os.name} | Root: {current_app.root_path}"
     
@@ -33,6 +44,7 @@ def debug_logs():
         <h1>🌿 Diagnóstico del Jardín</h1>
         <p><strong>Entorno:</strong> {env_info}</p>
         <p><strong>Estado de Base de Datos:</strong> {db_status}</p>
+        <p><strong>Admin Check:</strong> {admin_check}</p>
         <p><strong>Ruta del Log:</strong> {log_path}</p>
         <hr>
         <h3>Logs de Error:</h3>
