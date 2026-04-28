@@ -4,8 +4,8 @@ Donde se validan las semillas antes de plantarlas en la base de datos.
 """
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, TextAreaField, DecimalField, IntegerField, SelectField, SubmitField
-from wtforms.validators import DataRequired, Length, Optional, NumberRange
+from wtforms import StringField, TextAreaField, DecimalField, IntegerField, SelectField, SubmitField, PasswordField
+from wtforms.validators import DataRequired, Length, Optional, NumberRange, Email, EqualTo
 
 class FlorForm(FlaskForm):
     """Formulario para Proyectos de Software (Semillero)."""
@@ -56,14 +56,14 @@ from wtforms.validators import Email, EqualTo
 
 class LoginForm(FlaskForm):
     email = StringField('Correo Mágico', validators=[DataRequired(), Email()])
-    contrasena = StringField('Palabra Secreta (Contraseña)', validators=[DataRequired()])
+    contrasena = PasswordField('Palabra Secreta (Contraseña)', validators=[DataRequired()])
     submit = SubmitField('Ingresar')
 
 class RegistroForm(FlaskForm):
     username = StringField('Tu Apodo o Nombre', validators=[DataRequired(), Length(min=3, max=100)])
     email = StringField('Correo Mágico', validators=[DataRequired(), Email()])
-    contrasena = StringField('Palabra Secreta (Contraseña)', validators=[DataRequired(), Length(min=6)])
-    confirmar_contrasena = StringField('Confirmar Palabra Secreta (Contraseña)', validators=[DataRequired(), EqualTo('contrasena', message='Las palabras secretas no coinciden.')])
+    contrasena = PasswordField('Palabra Secreta (Contraseña)', validators=[DataRequired(), Length(min=6)])
+    confirmar_contrasena = PasswordField('Confirmar Palabra Secreta (Contraseña)', validators=[DataRequired(), EqualTo('contrasena', message='Las palabras secretas no coinciden.')])
     submit = SubmitField('Unirme a la Comunidad')
 
 class ComentarioForm(FlaskForm):

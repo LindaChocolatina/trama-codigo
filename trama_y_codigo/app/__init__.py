@@ -12,6 +12,7 @@ from app.config import configuraciones
 from app.extensions import db, login_manager, csrf
 from app.services.reloj_logico import obtener_estado_mundo
 from datetime import datetime
+import os
 
 
 def create_app(entorno='default'):
@@ -75,10 +76,20 @@ def create_app(entorno='default'):
     @app.errorhandler(500)
     def handle_500(e):
         import traceback
-        with open('error_log.txt', 'a') as f:
+        log_path = os.path.join(app.root_path, 'error_log.txt')
+        with open(log_path, 'a') as f:
             f.write(f"\n--- ERROR 500 at {datetime.now()} ---\n")
             f.write(traceback.format_exc())
         return "Error Interno del Servidor. Se ha registrado el detalle en el log.", 500
+
+    @app.route('/debug-logs')
+    def debug_logs():
+        """Ruta temporal para ver qué está fallando."""
+        log_path = os.path.join(app.root_path, 'error_log.txt')
+        if os.path.exists(log_path):
+            with open(log_path, 'r') as f:
+                return f"<pre>{f.read()}</pre>"
+        return "No hay logs registrados todavía."
 
     return app
 
