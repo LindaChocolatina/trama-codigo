@@ -11,6 +11,7 @@ from flask import Flask
 from app.config import configuraciones
 from app.extensions import db, login_manager, csrf
 from app.services.reloj_logico import obtener_estado_mundo
+from datetime import datetime
 
 
 def create_app(entorno='default'):
@@ -70,6 +71,14 @@ def create_app(entorno='default'):
         from app import models  # noqa: F401
         db.create_all()
         _sembrar_datos_iniciales(app)
+
+    @app.errorhandler(500)
+    def handle_500(e):
+        import traceback
+        with open('error_log.txt', 'a') as f:
+            f.write(f"\n--- ERROR 500 at {datetime.now()} ---\n")
+            f.write(traceback.format_exc())
+        return "Error Interno del Servidor. Se ha registrado el detalle en el log.", 500
 
     return app
 
