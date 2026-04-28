@@ -206,6 +206,7 @@ a:hover {
     color: var(--vinotinto);
     text-decoration: none;
     letter-spacing: 0.02em;
+    white-space: nowrap;
 }
 
 .navegacion-logo span {
@@ -218,6 +219,16 @@ a:hover {
     list-style: none;
     gap: var(--espacio-lg);
     align-items: center;
+    white-space: nowrap;
+}
+
+.navegacion-usuario {
+    margin-left: 1rem;
+    border-left: 1px solid rgba(0,0,0,0.1);
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .navegacion-links a {
