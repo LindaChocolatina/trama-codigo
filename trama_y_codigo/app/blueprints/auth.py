@@ -34,7 +34,7 @@ def login():
                 next_page = request.args.get('next')
                 return redirect(next_page or url_for('jardin.escena'))
         
-        flash('Las credenciales no coinciden con ninguna semilla plantada.', 'error')
+        flash('Las credenciales no coinciden con ninguna semilla plantada en el jardín.', 'error')
 
     return render_template('auth/login.html', form=form)
 
@@ -51,6 +51,11 @@ def registro():
         if Usuario.query.filter_by(email=form.email.data).first():
             flash('Este correo mágico ya está registrado en el bosque.', 'error')
             return redirect(url_for('auth.registro'))
+        
+        # Verificar si el apodo ya existe
+        if Usuario.query.filter_by(username=form.username.data).first():
+            flash('Este apodo ya ha sido tomado por otro caminante.', 'error')
+            return redirect(url_for('auth.registro'))
 
         nuevo_usuario = Usuario(
             username=form.username.data,
@@ -59,7 +64,12 @@ def registro():
         )
         nuevo_usuario.plantar_contrasena(form.contrasena.data)
         db.session.add(nuevo_usuario)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            flash('Hubo un problema al plantar tu semilla. Inténtalo de nuevo.', 'error')
+            return redirect(url_for('auth.registro'))
 
         login_user(nuevo_usuario)
         flash('¡Tu semilla ha sido plantada! Bienvenido a la comunidad.', 'exito')

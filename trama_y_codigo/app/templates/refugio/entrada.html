@@ -24,8 +24,8 @@
                 {% for c in entrada.comentarios %}
                     <div style="background: rgba(255,255,255,0.4); padding: 1rem; border-radius: var(--radio-suave);">
                         <p style="font-weight: bold; color: var(--carbon); margin-bottom: 0.25rem;">
-                            {{ c.usuario.username }} 
-                            {% if c.usuario.es_jardinera %} <span title="La Jardinera">🌿</span> {% endif %}
+                            {{ c.autor.username }} 
+                            {% if c.autor.es_jardinera %} <span title="La Jardinera">🌿</span> {% endif %}
                             <span style="font-size: 0.8rem; color: var(--carbon-suave); font-weight: normal; margin-left: 0.5rem;">{{ c.fecha_comentario.strftime('%Y-%m-%d') }}</span>
                         </p>
                         <p style="margin: 0; font-size: 0.95rem;">{{ c.contenido }}</p>

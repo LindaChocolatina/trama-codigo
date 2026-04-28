@@ -37,8 +37,13 @@ def entrada(entrada_id):
             contenido=form.contenido.data
         )
         db.session.add(comentario)
-        db.session.commit()
-        flash('Has dejado tus huellas en este refugio.', 'exito')
+        try:
+            db.session.commit()
+            flash('Has dejado tus huellas en este refugio.', 'exito')
+        except Exception as e:
+            db.session.rollback()
+            flash('Hubo un problema al guardar tus huellas. Inténtalo de nuevo.', 'error')
+            
         return redirect(url_for('refugio.entrada', entrada_id=entrada_obj.id))
         
     return render_template('refugio/entrada.html', entrada=entrada_obj, form=form)

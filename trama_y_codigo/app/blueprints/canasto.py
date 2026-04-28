@@ -2,7 +2,7 @@
 Blueprint: El Canasto de Mimbre — Carrito de Compras y Checkout.
 Los tesoros recolectados esperan en un canasto tejido a mano para ser llevados a casa.
 """
-import os
+import os, secrets
 from flask import Blueprint, render_template, session, redirect, url_for, request, flash, jsonify, current_app
 from werkzeug.utils import secure_filename
 from app.extensions import db
@@ -93,8 +93,15 @@ def checkout():
         usuario = Usuario.query.filter_by(email=email).first()
         if not usuario:
             usuario = Usuario(username=nombre, email=email, rol='cliente')
+            # Plantar una contraseña aleatoria (el usuario podrá cambiarla luego si se registra)
+            usuario.plantar_contrasena(secrets.token_hex(16))
             db.session.add(usuario)
-            db.session.commit()
+            try:
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                flash('Hubo un problema al procesar tus datos. Inténtalo de nuevo.', 'error')
+                return redirect(url_for('canasto.checkout'))
 
         # Crear el pedido
         total = calcular_total_canasto()
