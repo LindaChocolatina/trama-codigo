@@ -94,18 +94,22 @@ def _sembrar_datos_iniciales(app):
     from app.models.refugio import EntradaBitacora
     from app.models.bosque import ProductoBosque
 
-    # Si ya hay usuarios, el jardín ya fue sembrado
-    if Usuario.query.first():
+    # ── Asegurar la existencia de la Jardinera (admin) ──
+    jardinera = Usuario.query.filter_by(rol='administradora').first()
+    if not jardinera:
+        jardinera = Usuario(
+            username='jardinera',
+            email='lindasioc@gmail.com',
+            rol='administradora'
+        )
+        jardinera.plantar_contrasena('semilla2026')
+        db.session.add(jardinera)
+        db.session.commit()
+        print('[OK] Jardinera creada exitosamente.')
+    
+    # Si ya hay otros datos, no sembrar el resto
+    if ProyectoSoftware.query.first():
         return
-
-    # ── Crear la Jardinera (admin) ──
-    jardinera = Usuario(
-        username='jardinera',
-        email='jardinera@tramaycodigo.com',
-        rol='administradora'
-    )
-    jardinera.plantar_contrasena('semilla2026')
-    db.session.add(jardinera)
 
     # ── Sembrar flores en el Semillero ──
     flores = [
