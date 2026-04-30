@@ -10,9 +10,9 @@
 ## 🌸 El Jardín en Cifras (Módulos)
 
 *   **El Semillero (Software):** Una galería de flores digitales. Cada proyecto es un organismo vivo nacido de una semilla de código, con su propio stack técnico y su historia de crecimiento.
-*   **Las Tramas (Fibras):** El arte de tejer convertido en píxeles. Un portafolio dedicado a las fibras naturales, el crochet y el macramé, donde cada hilo cuenta una historia.
+*   **Las Tramas (Fibras):** El arte de tejer convertido en píxeles. Un portafolio dedicado a las fibras naturales, el crochet y el bordado, donde cada hilo cuenta una historia.
 *   **El Refugio (Bitácora):** Un espacio de introspección junto al fuego. Un blog donde se reflexiona sobre el proceso creativo, la paciencia y la belleza de lo hecho a mano.
-*   **El Bosque de Pinos (Tienda):** Un mercado de tesoros físicos y digitales. Desde amigurumis tejidos con lana merino hasta plantillas de código listas para florecer en otros jardines.
+*   **El Bosque de Pinos (Tienda):** Un mercado de tesoros físicos y digitales. Desde amigurumis tejidos hasta plantillas de código listas para florecer en otros jardines.
 *   **El Canasto de Mimbre:** Un sistema de intercambio artesanal que acepta tanto el oro digital (PayPal) como las cartas de agradecimiento (Nequi).
 
 ---
