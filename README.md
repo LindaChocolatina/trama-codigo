@@ -3,7 +3,7 @@
 
 [![Desplegado en Render](https://img.shields.io/badge/Render-Live-brightgreen?style=flat-square&logo=render)](https://trama-codigo.onrender.com)
 
-**Trama & Código** no es solo una plataforma; es un ecosistema vivo. Es el refugio digital de una jardinera que cultiva software y teje historias con las manos. Aquí, la tecnología no es fría ni estática; cambia con el paso de las horas y crece al ritmo del cuidado humano.
+**Trama & Código** no es solo una plataforma; es un ecosistema vivo. Es el refugio digital de una jardinera que cultiva software y teje historias con las manos. Aquí, la tecnología no es fría ni estática; la interfaz evoluciona visualmente según la hora del día del visitante y crece al ritmo del cuidado humano.
 
 ---
 
